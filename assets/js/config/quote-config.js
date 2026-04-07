@@ -1,5 +1,5 @@
 /*
- * ENTERPRISE STATIC SERVICE SITE TEMPLATE
+ * APERTURE — B2B REVENUE INTELLIGENCE PLATFORM
  * SAFE TO EDIT: question copy, option labels, range inputs, assumptions text
  * EDIT WITH CARE: branching ids, service ids, and allowed question types drive core quote logic
  */
@@ -10,16 +10,16 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
 window.SiteTemplate.config.quote = {
   experience: {
     pageIntro: {
-      eyebrow: "Quote",
-      title: "A controlled estimate experience for serious buyers.",
+      eyebrow: "Sizing tool",
+      title: "Get a custom quote for your revenue team.",
       body:
-        "The quote flow uses one question per screen, a hard lead gate before result reveal, and scheduler handoff once the estimate is captured."
+        "A short sequence of questions about your team, your stack, and your forecast cycle. You'll see a directional quote, recommended deployment tier, and a working session with a solutions architect."
     },
-    title: "Guided Estimate",
+    title: "Aperture Sizing Tool",
     intro:
-      "Answer a short sequence of questions to receive a directional range, recommended engagement tier, and the most sensible next step.",
+      "Answer ten quick questions about your revenue motion. We'll size the right deployment tier and estimate annual contract value before you talk to a sales person.",
     estimatedDurationText: "Usually 3 to 5 minutes",
-    startLabel: "Start the Quote"
+    startLabel: "Start the Sizing Tool"
   },
   supportedQuestionTypes: [
     "single-select",
@@ -38,13 +38,13 @@ window.SiteTemplate.config.quote = {
       visible: true,
       order: 10,
       type: "single-select",
-      title: "What is the main outcome you need?",
-      helpText: "Pick the option that best matches the primary driver behind this request.",
+      title: "What is the primary outcome you need from Aperture?",
+      helpText: "Pick the option that best matches the reason you're evaluating us today.",
       required: true,
       options: [
-        { label: "Stabilize delivery", value: "stabilize" },
-        { label: "Redesign operations", value: "modernize" },
-        { label: "Scale responsibly", value: "scale" }
+        { label: "Replace a forecast spreadsheet that no one trusts", value: "stabilize" },
+        { label: "Modernize the revenue stack across multiple teams", value: "modernize" },
+        { label: "Scale forecast and risk visibility across a 200+ seller org", value: "scale" }
       ],
       nextQuestionRule: { defaultNextId: "teamSize" },
       answerKey: "engagementGoal",
@@ -57,14 +57,14 @@ window.SiteTemplate.config.quote = {
       visible: true,
       order: 20,
       type: "radio",
-      title: "How large is the delivery organization involved?",
-      helpText: "Use the team size most directly affected by the engagement.",
+      title: "How many sellers and CSMs will use Aperture?",
+      helpText: "Count quota-carrying sellers, sales engineers, customer success managers, and revenue operations.",
       required: true,
       options: [
-        { label: "1 to 10 people", value: "team_1_10" },
-        { label: "11 to 50 people", value: "team_11_50" },
-        { label: "51 to 200 people", value: "team_51_200" },
-        { label: "200+ people", value: "team_200_plus" }
+        { label: "1 to 25", value: "team_1_10" },
+        { label: "26 to 75", value: "team_11_50" },
+        { label: "76 to 200", value: "team_51_200" },
+        { label: "200+", value: "team_200_plus" }
       ],
       nextQuestionRule: { defaultNextId: "activeClients" },
       answerKey: "teamSize",
@@ -76,13 +76,13 @@ window.SiteTemplate.config.quote = {
       visible: true,
       order: 30,
       type: "number",
-      title: "How many active client engagements are in scope?",
-      helpText: "A rough number is fine.",
-      placeholder: "Example: 28",
+      title: "How many active opportunities are typically in your pipeline?",
+      helpText: "A rough number is fine — we use this to size the workspace and forecast model complexity.",
+      placeholder: "Example: 320",
       required: true,
       validationRule: {
         min: 1,
-        max: 10000,
+        max: 100000,
         message: "Enter a number greater than zero."
       },
       nextQuestionRule: { defaultNextId: "deliveryModel" },
@@ -95,13 +95,13 @@ window.SiteTemplate.config.quote = {
       visible: true,
       order: 40,
       type: "dropdown",
-      title: "What level of support do you expect?",
-      helpText: "Choose the delivery model that feels closest to the support you need.",
+      title: "Which deployment tier are you leaning toward?",
+      helpText: "Pick the option closest to your team. The recommendation engine will adjust if your other answers point elsewhere.",
       required: true,
       options: [
-        { label: "Advisory project", value: "advisory_only" },
-        { label: "Structured program", value: "sprint_program" },
-        { label: "Embedded partner support", value: "embedded_partner" }
+        { label: "Starter — self-serve onboarding", value: "advisory_only" },
+        { label: "Growth — dedicated 2-week implementation", value: "sprint_program" },
+        { label: "Enterprise — single-tenant with named CSE", value: "embedded_partner" }
       ],
       nextQuestionRule: { defaultNextId: "timeline" },
       answerKey: "deliveryModel",
@@ -113,12 +113,12 @@ window.SiteTemplate.config.quote = {
       visible: true,
       order: 50,
       type: "radio",
-      title: "When does this work need to begin?",
+      title: "When do you need Aperture in production?",
       required: true,
       options: [
-        { label: "Immediately", value: "immediate" },
+        { label: "This month", value: "immediate" },
         { label: "This quarter", value: "this_quarter" },
-        { label: "Later this year", value: "later" }
+        { label: "Next quarter or later", value: "later" }
       ],
       nextQuestionRule: {
         defaultNextId: "needsCompliance",
@@ -138,8 +138,8 @@ window.SiteTemplate.config.quote = {
       visible: true,
       order: 60,
       type: "date",
-      title: "What is the target start date?",
-      helpText: "Used only for planning context.",
+      title: "What's the target go-live date?",
+      helpText: "Used for solutions architect scheduling and implementation planning.",
       required: true,
       nextQuestionRule: { defaultNextId: "needsCompliance" },
       answerKey: "targetStartDate",
@@ -151,7 +151,8 @@ window.SiteTemplate.config.quote = {
       visible: true,
       order: 70,
       type: "yes-no",
-      title: "Does the engagement include compliance, audit, or formal control requirements?",
+      title: "Do you have specific security or compliance requirements?",
+      helpText: "Most enterprise procurement does. Examples: SOC 2 review, single-tenant isolation, regional data residency.",
       required: true,
       nextQuestionRule: {
         defaultNextId: "primaryConstraint",
@@ -171,13 +172,13 @@ window.SiteTemplate.config.quote = {
       visible: true,
       order: 80,
       type: "checkbox-group",
-      title: "Which control areas matter most?",
+      title: "Which areas matter most?",
       helpText: "Select all that apply.",
       required: true,
       options: [
-        { label: "Documentation and evidence trails", value: "documentation" },
-        { label: "Security or access controls", value: "security" },
-        { label: "Vendor and dependency management", value: "vendor" }
+        { label: "SOC 2, ISO 27001, or other audit evidence", value: "documentation" },
+        { label: "SSO, SCIM, and access controls", value: "security" },
+        { label: "Single-tenant or regional data residency", value: "vendor" }
       ],
       nextQuestionRule: { defaultNextId: "primaryConstraint" },
       answerKey: "complianceFocus",
@@ -189,13 +190,13 @@ window.SiteTemplate.config.quote = {
       visible: true,
       order: 90,
       type: "radio",
-      title: "What is the biggest current constraint?",
+      title: "What's the biggest pain in your current forecast cycle?",
       required: true,
       options: [
-        { label: "Capacity planning", value: "capacity" },
-        { label: "Leadership reporting", value: "reporting" },
-        { label: "Service design and scoping", value: "service_design" },
-        { label: "Cross-team alignment", value: "alignment" }
+        { label: "Capacity planning and quota coverage", value: "capacity" },
+        { label: "Forecast accuracy and exec credibility", value: "reporting" },
+        { label: "Pipeline hygiene and stage definitions", value: "service_design" },
+        { label: "Cross-team alignment between sales, CS, and finance", value: "alignment" }
       ],
       nextQuestionRule: { defaultNextId: "initiativeLabel" },
       answerKey: "primaryConstraint",
@@ -207,8 +208,8 @@ window.SiteTemplate.config.quote = {
       visible: true,
       order: 100,
       type: "short-text",
-      title: "Optional: what do you call this initiative internally?",
-      placeholder: "Example: Delivery operating model reset",
+      title: "Optional: what does your team call this project internally?",
+      placeholder: "Example: FY27 Forecast Reset",
       required: false,
       nextQuestionRule: { defaultNextId: "additionalContext" },
       answerKey: "initiativeLabel",
@@ -220,8 +221,8 @@ window.SiteTemplate.config.quote = {
       visible: true,
       order: 110,
       type: "textarea",
-      title: "Anything else we should account for?",
-      placeholder: "Constraints, deadlines, stakeholders, or important context",
+      title: "Anything else we should know?",
+      placeholder: "Existing tools, board pressure, integration requirements, or stakeholders to involve",
       required: false,
       nextQuestionRule: { defaultNextId: null },
       answerKey: "additionalContext",
@@ -248,8 +249,8 @@ window.SiteTemplate.config.quote = {
       team_200_plus: "partner"
     },
     activeClientThresholds: [
-      { minimum: 25, tier: "program" },
-      { minimum: 80, tier: "partner" }
+      { minimum: 100, tier: "program" },
+      { minimum: 500, tier: "partner" }
     ],
     urgencyTierUpgrades: {
       immediate: 1,
@@ -266,164 +267,168 @@ window.SiteTemplate.config.quote = {
   },
   estimateModel: {
     baseRanges: {
-      diagnostic: [18000, 32000],
-      program: [48000, 92000],
-      partner: [120000, 240000]
+      diagnostic: [22000, 38000],
+      program: [60000, 110000],
+      partner: [150000, 280000]
     },
     rangeModifiers: {
       teamSize: {
         team_1_10: [0, 0],
-        team_11_50: [6000, 12000],
-        team_51_200: [18000, 32000],
-        team_200_plus: [35000, 60000]
+        team_11_50: [8000, 16000],
+        team_51_200: [22000, 38000],
+        team_200_plus: [40000, 75000]
       },
       activeClients: [
         { minimum: 1, range: [0, 0] },
-        { minimum: 15, range: [4000, 8000] },
-        { minimum: 40, range: [10000, 18000] },
-        { minimum: 100, range: [18000, 30000] }
+        { minimum: 100, range: [5000, 10000] },
+        { minimum: 500, range: [12000, 22000] },
+        { minimum: 2000, range: [22000, 40000] }
       ],
       timeline: {
-        immediate: [12000, 22000],
-        this_quarter: [5000, 12000],
+        immediate: [10000, 18000],
+        this_quarter: [4000, 9000],
         later: [0, 0]
       },
       needsCompliance: {
-        true: [10000, 20000],
+        true: [12000, 22000],
         false: [0, 0]
       },
       complianceFocus: {
         documentation: [3000, 7000],
         security: [5000, 10000],
-        vendor: [4000, 9000]
+        vendor: [8000, 18000]
       },
       primaryConstraint: {
-        capacity: [7000, 12000],
+        capacity: [6000, 12000],
         reporting: [4000, 8000],
-        service_design: [6000, 14000],
-        alignment: [9000, 18000]
+        service_design: [5000, 12000],
+        alignment: [8000, 16000]
       }
     }
   },
   scopeTemplates: {
     diagnostic: {
-      recommendedLabel: "Diagnostic Advisory Sprint",
+      recommendedLabel: "Aperture Starter",
       scopeSummary:
-        "A focused diagnostic engagement to establish the operating baseline, isolate risk, and define the corrective plan.",
+        "Aperture Starter for revenue teams retiring spreadsheet forecasts. Self-serve onboarding plus a guided solutions engineer session to validate the forecast model.",
       breakdown: [
-        "Current-state delivery system review",
-        "Service packaging and scoping assessment",
-        "Leadership reporting and escalation baseline",
-        "Prioritized findings and next-step roadmap"
+        "Aperture pipeline and forecast workspace",
+        "Salesforce or HubSpot connector",
+        "Standard deal-risk and engagement scoring model",
+        "SSO via SAML and basic audit log",
+        "Onboarding session with a solutions engineer"
       ],
       assumptions: [
-        "Stakeholder access is available during discovery.",
-        "Source documents and current delivery materials can be reviewed within the engagement window."
+        "Your CRM is Salesforce or HubSpot and admin access is available.",
+        "Forecast model can be calibrated against the last two closed quarters."
       ]
     },
     program: {
-      recommendedLabel: "Transformation Program",
+      recommendedLabel: "Aperture Growth",
       scopeSummary:
-        "A structured redesign program for service operations, leadership controls, and the delivery model itself.",
+        "Aperture Growth for B2B revenue orgs scaling across multiple segments. Tunable scoring, native integrations across the revenue stack, and a dedicated solutions architect implementation.",
       breakdown: [
-        "Target operating model design",
-        "Service tier and quote refinement",
-        "Leadership reporting, cadence, and governance setup",
-        "Implementation toolkit and rollout support"
+        "Aperture pipeline workspace for the full revenue org",
+        "All native connectors (CRM, warehouse, conversation intelligence, sales engagement, Slack)",
+        "Tunable deal-risk and engagement model",
+        "Custom executive dashboards and forecast roll-ups",
+        "Dedicated solutions architect implementation"
       ],
       assumptions: [
-        "A designated sponsor can make scope decisions promptly.",
-        "Client-facing and internal workflow owners are available for working sessions."
+        "A revenue operations sponsor is available for working sessions during the implementation window.",
+        "Your data warehouse has at least 12 months of pipeline history available."
       ]
     },
     partner: {
-      recommendedLabel: "Fractional Operations Partner",
+      recommendedLabel: "Aperture Enterprise",
       scopeSummary:
-        "An embedded advisory model for ongoing governance, decision support, and continuous operating discipline.",
+        "Aperture Enterprise for late-stage and public-company revenue orgs. Single-tenant deployment, custom data science, embedded customer success engineering, and 24/7 named support.",
       breakdown: [
-        "Recurring executive operating reviews",
-        "Cross-functional issue triage and escalation support",
-        "Capacity, delivery, and risk monitoring",
-        "Quarterly service and control refinement"
+        "Single-tenant deployment with regional data residency",
+        "All connectors plus customer-built integrations",
+        "Custom data science and bespoke forecast models",
+        "SSO + SCIM + immutable audit log + tenant isolation",
+        "24/7 support with named customer success engineer",
+        "Quarterly executive business reviews"
       ],
       assumptions: [
-        "Leadership wants an ongoing advisor with direct operating visibility.",
-        "The engagement includes recurring access to delivery, sales, and executive stakeholders."
+        "Procurement, security, and legal review windows are scheduled in parallel.",
+        "Executive sponsors will participate in quarterly business reviews."
       ]
     }
   },
   conditionalScopeAdditions: {
     needsCompliance: {
       true: [
-        "Control mapping for audit or compliance-sensitive workflows"
+        "Security review package and SOC 2 evidence walkthrough"
       ]
     },
     complianceFocus: {
       documentation: [
-        "Documentation, evidence trail, and approval-path review"
+        "Audit evidence collection and customer-side compliance reporting"
       ],
       security: [
-        "Security and access-control workflow review"
+        "SSO, SCIM, and granular role-based access control configuration"
       ],
       vendor: [
-        "Vendor and dependency governance review"
+        "Single-tenant deployment, regional data residency, and BYO key management"
       ]
     },
     primaryConstraint: {
       capacity: [
-        "Capacity model and workload balancing analysis"
+        "Capacity model and quota coverage analysis"
       ],
       reporting: [
-        "Leadership reporting redesign and dashboard requirements"
+        "Executive forecast roll-up and dashboard configuration"
       ],
       service_design: [
-        "Service scope, packaging, and quote-boundary redesign"
+        "Pipeline stage and forecast category redesign"
       ],
       alignment: [
-        "Cross-team operating cadence and decision-rights alignment"
+        "Cross-functional cadence: sales, customer success, and finance integration"
       ]
     }
   },
   nextStepTemplates: {
     diagnostic: [
-      "Confirm the current-state review scope and stakeholder list.",
-      "Schedule a working session to validate delivery pain points and operating constraints.",
-      "Use the resulting diagnostic to finalize a binding engagement scope if needed."
+      "Confirm CRM admin access and a target go-live date.",
+      "Schedule a 30-minute working session with an Aperture solutions engineer.",
+      "Receive a written quote and self-serve onboarding link after the session."
     ],
     program: [
-      "Review the recommended operating workstreams and target sequence.",
-      "Confirm sponsor ownership, dependencies, and implementation window.",
-      "Book a working session to convert the estimate into a formal program scope."
+      "Schedule a working session with a solutions architect to validate the deployment plan.",
+      "Confirm the executive sponsor and the data warehouse access path.",
+      "Receive a written commercial proposal and an implementation calendar."
     ],
     partner: [
-      "Validate the leadership cadence, meeting structure, and reporting expectations.",
-      "Clarify executive decision rights and escalation boundaries.",
-      "Book a planning session to define the first 90-day operating agenda."
+      "Schedule a discovery call with a senior account executive and a solutions architect.",
+      "Kick off the security and procurement review in parallel with the technical scoping.",
+      "Receive a master subscription agreement draft tailored to your data residency and SLA requirements."
     ]
   },
   resultLabels: {
-    estimateRange: "Estimated Range",
-    recommendedTier: "Recommended Engagement",
-    breakdown: "Detailed Scope",
+    estimateRange: "Estimated Annual Contract Value",
+    recommendedTier: "Recommended Plan",
+    breakdown: "What's included",
     assumptions: "Assumptions",
-    nextSteps: "Suggested Next Steps",
+    nextSteps: "Next Steps",
     disclaimer:
-      "This output is a directional estimate based on the information provided. Final pricing and scope require a confirmed written engagement."
+      "This is a directional estimate based on the information you provided. Final pricing depends on contract length, deployment scope, and integration complexity. A solutions architect will confirm the number on a working call."
   },
   leadGate: {
-    heading: "One last step before the estimate is revealed",
+    heading: "One last step before we show your quote",
     body:
-      "Provide a minimal contact point so the quote can be tied to a real lead record and followed up responsibly.",
-    submitLabel: "Submit and Show Estimate",
+      "Tell us who to send the quote to. Aperture's sales team will follow up only to schedule a working session — no marketing nurture spam.",
+    submitLabel: "Show My Quote",
     nameLabel: "Full name",
     companyLabel: "Company",
-    emailLabel: "Email",
-    phoneLabel: "Phone",
+    emailLabel: "Work email",
+    phoneLabel: "Phone (optional)",
     nameOrCompanyMessage: "Provide either a name or a company.",
     emailOrPhoneMessage: "Provide either an email or a phone number."
   },
   download: {
-    fileNamePrefix: "northstar-estimate",
-    title: "Estimate Summary"
+    fileNamePrefix: "aperture-quote",
+    title: "Aperture Quote Summary"
   }
 };

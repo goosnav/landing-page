@@ -1,5 +1,5 @@
 /*
- * ENTERPRISE STATIC SERVICE SITE TEMPLATE
+ * APERTURE — B2B REVENUE INTELLIGENCE PLATFORM
  * SAFE TO EDIT: Formspree endpoints, admin labels, contact-page copy
  * EDIT WITH CARE: real production endpoints should replace placeholders
  */
@@ -10,37 +10,37 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
 window.SiteTemplate.config.contact = {
   contactFormEndpoint: "https://formspree.io/f/your-contact-form-id",
   quoteLeadFormEndpoint: "https://formspree.io/f/your-quote-form-id",
-  adminEmailLabel: "Primary inbox",
+  adminEmailLabel: "Sales inbox",
   successMessageContact:
-    "Message received. A response should reach the configured inbox shortly.",
+    "Thanks — your message reached the Aperture sales team. Expect a response within one business day.",
   successMessageQuote:
-    "Details received. Your quote summary is ready below and the lead has been captured.",
+    "Your sizing inputs are captured. The estimate is ready below and a solutions architect will follow up to schedule a working session.",
   errorMessageGeneric:
-    "Submission could not be completed. Review the form, confirm the endpoint, and try again.",
+    "Something went wrong submitting that. Check the form, confirm your network, and try again. If the issue persists, email hello@aperture.example.",
   enableSpamTrap: true,
   privacyNoticeText:
-    "By submitting this form you agree that the provided information may be used to respond to your request and coordinate follow-up.",
+    "By submitting this form you agree that Aperture may use the information to respond to your request. Aperture does not sell personal data.",
   optInLabel:
-    "Keep me informed about useful updates, relevant service offerings, and occasional insights.",
+    "Send me occasional product updates and revenue operations briefings. (You can unsubscribe at any time.)",
   pageIntro: {
-    eyebrow: "Contact",
-    title: "Start with a direct operational conversation.",
+    eyebrow: "Talk to sales",
+    title: "Start a real sales conversation.",
     body:
-      "Use the contact form for general inquiries, partnership requests, or scoped follow-up after reviewing services."
+      "Use the contact form for sales inquiries, security and compliance reviews, partnership requests, or anything else that needs a real person."
   },
   formLabels: {
     sectionHeading: "Send a message",
-    nameLabel: "Name",
-    emailLabel: "Email",
-    phoneLabel: "Phone",
+    nameLabel: "Full name",
+    emailLabel: "Work email",
+    phoneLabel: "Phone (optional)",
     companyLabel: "Company",
-    messageLabel: "Message",
+    messageLabel: "What can we help with?",
     submitLabel: "Send Message"
   },
-  alternateContactHeading: "Direct contact",
+  alternateContactHeading: "Other ways to reach us",
   alternateContactBody:
-    "For procurement, executive introductions, or urgent delivery discussions, use the primary email or phone listed below.",
-  schedulerPreviewHeading: "Prefer a scheduled conversation?",
+    "For procurement, security questionnaires, or executive introductions, the email and phone below reach the Aperture sales team directly.",
+  schedulerPreviewHeading: "Prefer to book a slot directly?",
   schedulerPreviewBody:
-    "Enable the scheduler block here if you want contact-page visitors to book time without going through the quote flow first."
+    "Skip the form and book a 30-minute working session with a solutions architect. Bring your forecast questions."
 };

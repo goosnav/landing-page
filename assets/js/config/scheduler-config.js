@@ -1,5 +1,5 @@
 /*
- * ENTERPRISE STATIC SERVICE SITE TEMPLATE
+ * APERTURE — B2B REVENUE INTELLIGENCE PLATFORM
  * SAFE TO EDIT: scheduler mode, link, explanatory copy
  * EDIT WITH CARE: inline embed HTML should come only from a trusted scheduler source
  */
@@ -12,13 +12,13 @@ window.SiteTemplate.config.scheduler = {
   schedulerUrl:
     "https://calendar.google.com/calendar/u/0/appointments/schedules/placeholder",
   embedHtml: "",
-  schedulerHeading: "Schedule a working session",
+  schedulerHeading: "Book a working session",
   schedulerBodyText:
-    "If the estimate looks close, book time to confirm scope, dependencies, and the right engagement model.",
-  fallbackLinkLabel: "Open the Scheduler",
+    "30 minutes with a solutions architect. Bring your forecast questions, your CRM, and the dashboard you're trying to retire.",
+  fallbackLinkLabel: "Book a Time",
   openInNewTab: true,
   enabledOnQuote: true,
   enabledOnContact: true,
   disabledText:
-    "Scheduling is currently handled manually. Use the contact form if direct booking is disabled."
+    "Direct booking is paused. Use the contact form and a member of the team will respond within one business day."
 };

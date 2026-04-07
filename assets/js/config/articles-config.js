@@ -1,5 +1,5 @@
 /*
- * ENTERPRISE STATIC SERVICE SITE TEMPLATE
+ * APERTURE — B2B REVENUE INTELLIGENCE PLATFORM
  * SAFE TO EDIT: placeholder article metadata for future publication index use
  * EDIT WITH CARE: this is an index only; no CMS assumptions belong here
  */
@@ -9,31 +9,31 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
 
 window.SiteTemplate.config.articles = {
   intro: {
-    eyebrow: "Hidden placeholder",
-    title: "Articles and White Papers",
+    eyebrow: "Resources",
+    title: "Briefings and operator notes",
     body:
-      "This page is intentionally hidden from the public navigation by default. Use it when the business is ready to publish briefs, articles, or white papers."
+      "Working notes from the Aperture team and our customers. Forecast benchmarks, RevOps tactics, and the occasional postmortem."
   },
   items: [
     {
-      id: "ops-governance-brief",
+      id: "forecast-accuracy-benchmark",
       visible: true,
-      title: "Operating Governance Without Tooling Sprawl",
-      category: "White Paper",
+      title: "The 2026 B2B Forecast Accuracy Benchmark",
+      category: "Benchmark",
       summary:
-        "A short brief on building executive operating control without overcomplicating the platform surface area.",
+        "We surveyed 142 B2B SaaS revenue teams between $10M and $500M ARR on forecast accuracy, cadence, and tooling. Here's what the median operator looks like.",
       publishDate: "2026-03-14",
       href: "#",
       thumbnailPath: "",
       featured: true
     },
     {
-      id: "service-packaging-note",
+      id: "deal-risk-signals",
       visible: true,
-      title: "When Service Packaging Starts Working Against Delivery",
-      category: "Article",
+      title: "Five Deal-Risk Signals Your CRM Will Never Show You",
+      category: "Operator Note",
       summary:
-        "Signals that a firm's service packaging model is increasing friction instead of improving clarity.",
+        "The leading indicators that predict slipped deals are mostly outside your CRM. Here's how revenue leaders use them.",
       publishDate: "2026-02-06",
       href: "#",
       thumbnailPath: "",

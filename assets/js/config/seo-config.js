@@ -1,5 +1,5 @@
 /*
- * ENTERPRISE STATIC SERVICE SITE TEMPLATE
+ * APERTURE — B2B REVENUE INTELLIGENCE PLATFORM
  * SAFE TO EDIT: titles, descriptions, canonical base URL, social profiles
  * EDIT WITH CARE: keep page ids aligned with page filenames and html data-page values
  */
@@ -8,83 +8,84 @@ window.SiteTemplate = window.SiteTemplate || {};
 window.SiteTemplate.config = window.SiteTemplate.config || {};
 
 window.SiteTemplate.config.seo = {
-  siteUrl: "https://example.com",
-  defaultTitle: "Northstar Systems Advisory",
-  titleSuffix: " | Northstar Systems Advisory",
+  siteUrl: "https://aperture.example",
+  defaultTitle: "Aperture — Revenue intelligence for B2B teams",
+  titleSuffix: " | Aperture",
   defaultDescription:
-    "Config-driven static website template for service businesses with quote intake, Formspree lead capture, and scheduler handoff.",
+    "Aperture is the revenue operating system for B2B teams. Unify pipeline data, deal risk, and customer health on one auditable surface.",
   defaultOgImage: "img/branding/og-image-default.jpg",
   defaultRobots: "index,follow",
-  organizationName: "Northstar Systems Advisory LLC",
+  organizationName: "Aperture Labs, Inc.",
   organizationLogo: "img/branding/logo.svg",
   socialProfiles: [
-    "https://www.linkedin.com/company/example",
-    "https://github.com/example"
+    "https://www.linkedin.com/company/aperture",
+    "https://x.com/aperture",
+    "https://github.com/aperture"
   ],
   pageOverrides: {
     home: {
-      title: "Operational Systems for Regulated Service Teams",
+      title: "Revenue intelligence for B2B teams",
       description:
-        "Northstar helps service businesses stabilize delivery, improve governance, and scale operations without tooling bloat.",
+        "Aperture unifies pipeline data, deal risk, and customer health into one auditable surface. Forecast accuracy revenue leaders can defend.",
       canonicalPath: "/",
-      ogTitle: "Northstar Systems Advisory",
+      ogTitle: "Aperture — Revenue intelligence for B2B teams",
       ogDescription:
-        "Structured advisory for service organizations that need stronger operating systems."
+        "The revenue operating system for high-velocity B2B teams. Unify pipeline, forecast, and account health."
     },
     services: {
-      title: "Service Tiers",
+      title: "Plans and Pricing",
       description:
-        "Review Northstar's diagnostic, program, and embedded advisory engagements.",
+        "Three Aperture deployment tiers covering Series B revenue teams through enterprise. Native connectors, dedicated implementation, and 24/7 enterprise support.",
       canonicalPath: "/services.html"
     },
     quote: {
-      title: "Guided Estimate",
+      title: "Get a Custom Quote",
       description:
-        "Use the quote wizard to receive a directional estimate, recommended engagement, and scheduling handoff.",
+        "Run the Aperture sizing tool to receive a directional quote, recommended deployment tier, and a working session with a solutions architect.",
       canonicalPath: "/quote.html"
     },
     about: {
-      title: "About",
+      title: "About Aperture",
       description:
-        "Learn how Northstar approaches delivery systems, governance, and executive operating design.",
+        "Aperture was built by revenue operators and platform engineers tired of rebuilding the same forecast spreadsheet at every company.",
       canonicalPath: "/about.html"
     },
     contact: {
-      title: "Contact",
+      title: "Talk to Sales",
       description:
-        "Contact Northstar Systems Advisory for operational advisory inquiries and follow-up discussions.",
+        "Reach the Aperture team for sales conversations, security and compliance reviews, or partnership discussions.",
       canonicalPath: "/contact.html"
     },
     privacy: {
       title: "Privacy Policy",
       description:
-        "Review how this static site template handles contact and quote submission data.",
+        "How Aperture handles customer data, marketing site submissions, subprocessors, and data subject requests.",
       canonicalPath: "/privacy.html",
       robots: "noindex,follow"
     },
     terms: {
-      title: "Terms",
+      title: "Terms of Service",
       description:
-        "Review the terms governing use of this website and its non-binding estimate output.",
+        "Terms governing use of the Aperture marketing site and the relationship to the master subscription agreement.",
       canonicalPath: "/terms.html",
       robots: "noindex,follow"
     },
     articles: {
-      title: "Articles and White Papers",
+      title: "Resources and Briefings",
       description:
-        "Placeholder index for future articles, briefs, and white papers.",
+        "Briefings, benchmarks, and operator notes from the Aperture team and our customers.",
       canonicalPath: "/articles.html"
     },
     misc: {
-      title: "Miscellaneous",
+      title: "Trust and Reference",
       description:
-        "Hidden placeholder page for future custom business content.",
+        "Aperture trust center, security documentation, and reference materials.",
       canonicalPath: "/misc.html"
     },
     notFound: {
       title: "Page Not Found",
       description:
-        "The requested page could not be found.",
+        "The requested Aperture page could not be found.",
       canonicalPath: "/404.html",
       robots: "noindex,follow"
     }

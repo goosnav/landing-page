@@ -234,6 +234,26 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
       "</div>";
   }
 
+  function pickProcessGridClass(stepCount) {
+    if (stepCount <= 1) {
+      return "stack-md";
+    }
+
+    if (stepCount === 2) {
+      return "grid-2";
+    }
+
+    if (stepCount === 3) {
+      return "grid-3";
+    }
+
+    if (stepCount === 4) {
+      return "grid-4";
+    }
+
+    return "card-grid";
+  }
+
   function renderProcess(container) {
     var homePage = siteConfig.homePage || {};
     var steps = homePage.processSteps || [];
@@ -242,10 +262,12 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
       return;
     }
 
+    var gridClass = pickProcessGridClass(steps.length);
+
     container.innerHTML =
       '<div class="container">' +
       renderSectionHeader(homePage.processHeader, { eyebrow: "Process" }) +
-      '<div class="grid-4">' +
+      '<div class="' + gridClass + '">' +
       steps.map(function mapStep(step, index) {
         return (
           '<article class="card">' +
@@ -774,6 +796,7 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
   });
 
   template.renderers = {
+    pickProcessGridClass: pickProcessGridClass,
     renderPageIntro: renderPageIntro,
     renderHero: renderHero,
     renderDifferentiators: renderDifferentiators,
