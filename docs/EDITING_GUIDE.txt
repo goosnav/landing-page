@@ -1,0 +1,101 @@
+ENTERPRISE STATIC SERVICE SITE TEMPLATE
+EDITING GUIDE
+
+SAFE TO EDIT
+
+These files are the intended business customization layer:
+
+- assets/js/config/site-config.js
+- assets/js/config/nav-config.js
+- assets/js/config/services-config.js
+- assets/js/config/testimonials-config.js
+- assets/js/config/contact-config.js
+- assets/js/config/scheduler-config.js
+- assets/js/config/quote-config.js
+- assets/js/config/seo-config.js
+- assets/js/config/articles-config.js
+- assets/js/config/misc-config.js
+
+EDIT WITH CARE
+
+These files define shared behavior or shared presentation. Edit them only
+if you are changing template behavior, not just business content.
+
+- assets/js/app.js
+- assets/js/nav.js
+- assets/js/renderers.js
+- assets/js/form-handlers.js
+- assets/js/scheduler.js
+- assets/js/seo.js
+- assets/js/quote-engine.js
+- assets/js/quote-ui.js
+- assets/js/quote-download.js
+- assets/css/styles.css
+- assets/css/components.css
+- assets/css/utilities.css
+- assets/css/print.css
+
+CORE SYSTEM, AVOID CASUAL EDITS
+
+- tools/build-site.mjs
+- tools/test-site.mjs
+
+COMMON CUSTOMIZATION TASKS
+
+Change the business name and contact details:
+- Edit assets/js/config/site-config.js
+
+Replace the logo and favicon package:
+- Replace files in assets/img/branding/
+- Keep filenames stable unless you also update site-config.js
+
+Show or hide navigation items:
+- Edit visible and footerVisible in assets/js/config/nav-config.js
+
+Change hero CTA count:
+- Edit heroCtas in assets/js/config/site-config.js
+- Keep total CTA count between 1 and 3
+
+Change service tiers:
+- Edit assets/js/config/services-config.js
+- Keep visible service tier count between 3 and 7
+- Use allowed priceMode values only:
+  SHOW_PRICE, STARTING_AT, QUOTE_REQUIRED, CONTACT_SALES
+- Use allowed ctaType values only:
+  GO_TO_QUOTE, GO_TO_CONTACT, GO_TO_CUSTOM_URL, NO_CTA
+
+Change testimonial richness:
+- Edit simplifiedMode in assets/js/config/testimonials-config.js
+- Keep at least one rich example and one simple example during template development
+
+Enable Articles or Misc:
+- Set the matching nav item visible=true in assets/js/config/nav-config.js
+
+Change quote logic:
+- Edit questions and rule data in assets/js/config/quote-config.js
+- Do not move branching logic into quote-ui.js
+- Run node tools/test-site.mjs after every quote change
+
+Change contact or quote form endpoints:
+- Edit assets/js/config/contact-config.js
+- Replace the placeholder Formspree endpoints before production use
+
+Change scheduler behavior:
+- Edit assets/js/config/scheduler-config.js
+- Use EXTERNAL_LINK for the safest default
+- Use INLINE_EMBED only with trusted embed code
+
+Change metadata:
+- Edit assets/js/config/seo-config.js
+- Update siteUrl before production deployment
+
+WHEN TO EDIT HTML
+
+Edit site/*.html only if you need to:
+
+- add or remove a page-level section shell
+- change page semantics
+- add a new render target
+
+Do not hardcode business copy into HTML if the same outcome can be
+achieved in config.

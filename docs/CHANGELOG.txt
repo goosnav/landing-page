@@ -1,0 +1,29 @@
+ENTERPRISE STATIC SERVICE SITE TEMPLATE
+CHANGELOG
+
+2026-04-06
+
+Initial bedrock implementation completed:
+
+- established the final source tree with site/, assets/, docs/, tools/, and examples/
+- added the shared semantic page shells for all public pages, hidden placeholders, and 404
+- implemented a dark enterprise design system with separated CSS roles
+- implemented config-first branding, nav, services, testimonials, contact, scheduler, SEO, article, misc, and quote contracts
+- implemented shared rendering, navigation, form handling, scheduler rendering, and SEO hydration
+- implemented quote engine logic, one-question-per-screen UI, lead gate enforcement, and downloadable summary generation
+- added branding and testimonial asset package
+- added copy-only build assembly for GitHub Pages compatibility
+- added zero-dependency validation covering structure, asset paths, config contracts, quote logic, forms, scheduler behavior, and build output
+- added practical operational documentation
+
+DOCUMENTED DECISION
+
+The source specification requires page shells in site/ and shared assets
+in assets/. GitHub Pages publishes HTML from the artifact root. The repo
+therefore uses tools/build-site.mjs to assemble dist/ for deployment.
+
+This was chosen because it is:
+
+- lower-bloat than adding a framework or bundler
+- more stable than duplicating source files
+- more reusable than collapsing the repo structure around Pages limits

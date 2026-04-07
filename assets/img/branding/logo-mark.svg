@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
+  <title id="title">Northstar Systems Advisory logo mark</title>
+  <desc id="desc">Square industrial logo mark with a directional star.</desc>
+  <rect width="96" height="96" fill="#08090b"/>
+  <rect x="8" y="8" width="80" height="80" fill="none" stroke="#f3f4f6" stroke-width="4"/>
+  <path d="M48 20 56 40 76 48 56 56 48 76 40 56 20 48 40 40Z" fill="#f3f4f6"/>
+  <path d="M48 20 56 40 76 48" fill="none" stroke="#d83b3b" stroke-width="4"/>
+  <path d="M48 20 48 76" fill="none" stroke="#2c6de4" stroke-width="4"/>
+</svg>

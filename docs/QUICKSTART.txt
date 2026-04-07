@@ -1,0 +1,48 @@
+ENTERPRISE STATIC SERVICE SITE TEMPLATE
+QUICKSTART
+
+1. Clone the repository.
+2. Review dev/specs.txt and dev/sprints.txt if you need the governing architecture and sprint order.
+3. Run:
+   node tools/build-site.mjs
+4. Validate:
+   node tools/test-site.mjs
+5. Preview locally:
+   python3 -m http.server --directory dist 8080
+6. Open:
+   http://localhost:8080
+
+SOURCE PREVIEW OPTION
+
+You can open site/index.html directly for quick inspection, but the
+publishable GitHub Pages artifact is generated in dist/.
+
+WHERE TO EDIT FIRST
+
+- Branding and business identity:
+  assets/js/config/site-config.js
+- Navigation:
+  assets/js/config/nav-config.js
+- Services:
+  assets/js/config/services-config.js
+- Testimonials:
+  assets/js/config/testimonials-config.js
+- Contact and Formspree:
+  assets/js/config/contact-config.js
+- Scheduler:
+  assets/js/config/scheduler-config.js
+- Quote questions and rules:
+  assets/js/config/quote-config.js
+
+REQUIRED LOCAL TOOLS
+
+- Node.js 18+ for build and test scripts
+- Python 3 only if you want a zero-dependency local static server
+
+MANDATORY VALIDATION LOOP
+
+After each meaningful change:
+
+1. node tools/test-site.mjs
+2. Inspect the affected page in the browser
+3. Re-check quote flow or form behavior if the change touched them

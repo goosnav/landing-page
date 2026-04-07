@@ -1,0 +1,54 @@
+ENTERPRISE STATIC SERVICE SITE TEMPLATE
+GOOGLE CALENDAR SETUP
+
+SUPPORTED MODES
+
+1. EXTERNAL_LINK
+2. INLINE_EMBED
+
+FILES TO EDIT
+
+- assets/js/config/scheduler-config.js
+
+RECOMMENDED DEFAULT
+
+Use EXTERNAL_LINK unless there is a strong reason to embed the scheduler
+inline. External link mode is simpler, more resilient, and easier to
+debug on narrow viewports.
+
+EXTERNAL LINK SETUP
+
+1. Create or select a Google Calendar appointment schedule.
+2. Copy the appointment schedule URL.
+3. Set:
+   - mode = EXTERNAL_LINK
+   - schedulerUrl = your appointment schedule URL
+   - fallbackLinkLabel = your button text
+   - openInNewTab = true
+
+INLINE EMBED SETUP
+
+1. Create or select a Google Calendar appointment schedule.
+2. Copy the provider embed HTML.
+3. Set:
+   - mode = INLINE_EMBED
+   - embedHtml = trusted embed HTML string
+4. Keep schedulerUrl populated as a fallback-safe source of truth.
+
+CONTACT PAGE TOGGLE
+
+Use enabledOnContact in scheduler-config.js to control whether the
+Contact page shows the scheduler block.
+
+QUOTE PAGE TOGGLE
+
+Use enabledOnQuote in scheduler-config.js to control whether the quote
+result includes the scheduler block.
+
+MANDATORY TESTS AFTER CONFIGURATION
+
+1. Quote result shows the scheduler handoff.
+2. Contact page scheduler behavior matches config.
+3. External link opens the correct schedule URL.
+4. Inline embed does not break mobile layout.
+5. Scheduler-disabled state remains readable.

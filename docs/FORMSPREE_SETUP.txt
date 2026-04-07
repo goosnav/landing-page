@@ -1,0 +1,81 @@
+ENTERPRISE STATIC SERVICE SITE TEMPLATE
+FORMSPREE SETUP
+
+FORM MODEL
+
+This template uses two separate Formspree forms:
+
+1. Contact form
+2. Quote lead-gate form
+
+This split keeps inquiry and estimate leads separate.
+
+FILES TO EDIT
+
+- assets/js/config/contact-config.js
+
+FIELDS TO REPLACE
+
+- contactFormEndpoint
+- quoteLeadFormEndpoint
+- adminEmailLabel
+
+RECOMMENDED SETUP
+
+1. Create a Formspree form for the Contact page.
+2. Create a separate Formspree form for quote leads.
+3. Copy each endpoint into contact-config.js.
+4. Keep one primary admin destination or routing label.
+
+CONTACT FORM PAYLOAD
+
+The contact form submits:
+
+- name
+- email
+- phone
+- company
+- message
+- page
+- admin_destination
+
+QUOTE LEAD PAYLOAD
+
+The quote lead form submits:
+
+- lead_name
+- company_name
+- email
+- phone
+- marketing_opt_in
+- recommended_engagement
+- estimated_range
+- scope_summary
+- detailed_scope
+- assumptions
+- next_steps
+- selected_answers
+- initiative_label
+- additional_context
+- result_timestamp
+- admin_destination
+
+SPAM MITIGATION
+
+The template supports a light honeypot field when enableSpamTrap=true in
+contact-config.js. Formspree's own spam tooling remains the primary
+provider-side protection.
+
+IMPORTANT BEHAVIOR
+
+The quote result is not revealed until the quote lead submission
+succeeds. If Formspree submission fails, the UI stays on the lead gate
+and shows a retryable error.
+
+MANDATORY TESTS AFTER CONFIGURATION
+
+1. Submit a live Contact message.
+2. Submit a live quote lead.
+3. Confirm the inbox or Formspree dashboard receives readable fields.
+4. Confirm opt-in status is captured correctly.
+5. Confirm quote result remains blocked if the endpoint is invalid.

@@ -1,0 +1,120 @@
+ENTERPRISE STATIC SERVICE SITE TEMPLATE
+CONTENT MODEL
+
+OVERVIEW
+
+The config files under assets/js/config/ are the primary editing surface
+for template reuse.
+
+site-config.js
+- global brand identity
+- homepage content
+- about-page content
+- privacy and terms content
+- footer contact details
+- hero CTA list
+- header CTA
+
+nav-config.js
+- one object per nav item
+- controls visibility, ordering, footer-only behavior, and button style
+
+services-config.js
+- page intro
+- 3 to 7 visible service tiers
+- comparison matrix rows
+- services page CTA strip
+
+testimonials-config.js
+- supports both simplifiedMode=true and simplifiedMode=false
+- featuredOnHome controls homepage presence
+- featuredOnServices controls services-page presence
+
+contact-config.js
+- Formspree endpoints
+- admin email label
+- success and error messages
+- privacy note
+- opt-in label
+- contact-page intro copy
+
+scheduler-config.js
+- mode
+- schedulerUrl
+- embedHtml
+- headings and labels
+- enabledOnQuote
+- enabledOnContact
+
+quote-config.js
+- experience intro copy
+- question definitions
+- branching rules
+- recommendation model
+- estimate range model
+- scope templates
+- assumptions
+- next-step templates
+- lead gate labels
+- download labels
+
+seo-config.js
+- siteUrl
+- default metadata
+- pageOverrides map
+- organization metadata
+
+articles-config.js
+- hidden placeholder article index
+
+misc-config.js
+- hidden flexible placeholder content
+
+SERVICE TIER CONTRACT
+
+Each service tier supports:
+
+- id
+- order
+- visible
+- title
+- shortLabel
+- audience
+- summary
+- detailBody
+- features
+- deliverables
+- timelineText
+- priceMode
+- priceText
+- ctaType
+- ctaLabel
+- badge
+- featured
+- comparisonFlags
+- testimonialIds
+
+QUOTE QUESTION CONTRACT
+
+Each question supports:
+
+- id
+- visible
+- order
+- type
+- title
+- helpText
+- placeholder
+- required
+- options
+- validationRule
+- nextQuestionRule
+- answerKey
+- affectsEstimate
+- affectsScope
+- adminNotes
+
+SAFE EDIT RULE
+
+Prefer config changes before HTML or shared JS changes. If you can make
+the business customization in config, do it there first.

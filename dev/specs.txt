@@ -1,0 +1,2011 @@
+ENTERPRISE STATIC SERVICE SITE TEMPLATE
+SYSTEM SPECIFICATION / BUILD BIBLE
+VERSION: 2.0
+FORMAT: PLAIN TEXT
+STATUS: IMPLEMENTATION SPECIFICATION
+HOSTING TARGET: GITHUB PAGES
+FORM BACKEND: FORMSPREE
+SCHEDULING TARGET: GOOGLE CALENDAR APPOINTMENT SCHEDULES
+RUNTIME MODEL: STATIC MULTI-PAGE SITE, VANILLA HTML/CSS/JS, NO BUILD STEP REQUIRED
+
+======================================================================
+0. DOCUMENT PURPOSE
+===================
+
+This document defines the full software specification for a reusable,
+enterprise-grade static website template for service businesses.
+
+This is not a one-off website. This is a hardened core template intended
+to be duplicated and rapidly customized for many different businesses.
+
+The system must satisfy all of the following simultaneously:
+
+* extremely clean architecture
+* minimal stack complexity
+* static hosting compatibility
+* fast deployment
+* high legibility for developers
+* strong modifiability through centralized config/data files
+* complete core business-site conventions
+* no trendy UI clutter
+* no framework dependency
+* no unnecessary abstractions
+* desktop-first but mobile-safe
+* dark-theme by default
+* easy adaptation to different brands, services, and quote logic
+
+A competent developer must be able to read this document and build the
+system completely without needing missing assumptions filled in later.
+
+======================================================================
+
+1. PRIMARY OBJECTIVES
+   ======================================================================
+
+1.1 PRODUCT OBJECTIVE
+
+Build a static, multi-page, config-driven service business website
+template with the following public pages:
+
+* Home
+* Services
+* Quote
+* About
+* Contact
+* Privacy
+* Terms
+
+The system must also include the following hidden placeholder pages:
+
+* Articles / White Papers
+* Misc
+
+1.2 BUSINESS OBJECTIVE
+
+Enable rapid cloning and customization of the template for different
+businesses with minimal structural rewrites.
+
+1.3 ENGINEERING OBJECTIVE
+
+Enforce strict separation of concerns:
+
+* HTML = page structure and semantic layout
+* CSS = design system, layout, theme, components, utilities
+* JS = behavior, rendering, validation, quote flow, summary generation
+* Config/Data = brand identity, nav visibility, service tiers,
+  testimonials, forms, quote rules, scheduler settings, SEO defaults
+
+1.4 UX OBJECTIVE
+
+The site must feel:
+
+* corporate
+* technical
+* mature
+* direct
+* minimal
+* trustworthy
+* fast
+* legible
+
+The site must not feel:
+
+* cute
+* trendy
+* gimmicky
+* bubbly
+* startup-template-like
+* over-animated
+* bloated
+* CMS-heavy
+
+======================================================================
+2. PRODUCT PRINCIPLES
+=====================
+
+2.1 NO BLOAT
+
+Every file, module, config object, section, and page must justify its
+existence. Nothing decorative should exist solely because templates
+usually include it.
+
+2.2 STATIC FIRST
+
+The site itself must remain static. Dynamic behavior is client-side JS
+only. External services may be used only where static hosting cannot
+perform the required secure function.
+
+2.3 CONFIG FIRST
+
+Common modifications must happen primarily in config/data files, not by
+editing structural HTML repeatedly across the site.
+
+2.4 LEGIBILITY OVER CLEVERNESS
+
+Code must be obvious. Avoid abstraction for abstraction’s sake.
+
+2.5 SEMANTIC HTML
+
+Prefer standard HTML5 structure:
+
+* header
+* nav
+* main
+* section
+* article
+* aside
+* footer
+* form
+* fieldset
+* legend
+* label
+* button
+* dialog only if truly needed
+
+2.6 DESKTOP PRIORITY, MOBILE SAFETY
+
+Desktop is primary. Mobile must remain coherent, touch-safe, readable,
+and fully functional.
+
+2.7 HARDENED TEMPLATE
+
+This must be stable enough to serve as the reusable bedrock for serious
+commercial websites, not a throwaway demo scaffold.
+
+======================================================================
+3. SCOPE
+========
+
+3.1 IN SCOPE
+
+* static multi-page site
+* global branding system
+* configurable navigation system
+* 3 to 7 service tiers supported, default = 3
+* slideshow-style quote wizard, one question per screen
+* question branching based on prior answers
+* lead gate before quote result display
+* result screen with estimated range, service breakdown, scope summary,
+  assumptions, and next steps
+* downloadable quote summary
+* inline scheduler embed or fallback new-tab scheduler link
+* Formspree-powered contact form
+* Formspree-powered quote lead capture form
+* testimonial system with optional image, role, company, star rating
+* hidden Articles / White Papers placeholder architecture
+* hidden Misc placeholder architecture
+* favicon and standard metadata package
+* basic SEO package
+* accessibility baseline
+* code comments and docs for future modifiers
+* GitHub Pages deployment support
+
+3.2 OUT OF SCOPE FOR V1
+
+* user accounts
+* backend database
+* custom API
+* payment processing
+* CRM-native direct integration
+* server-side quote logic
+* hidden pricing logic
+* visitor file uploads
+* searchable article engine
+* WYSIWYG CMS
+* auth-protected content
+* direct newsletter platform sync
+* server-rendered blog
+* localization / multilingual support
+
+======================================================================
+4. TECHNOLOGY STACK
+===================
+
+4.1 REQUIRED STACK
+
+* HTML5
+* CSS3
+* Vanilla JavaScript (ES6+ syntax allowed, no framework)
+* GitHub Pages for hosting
+* Formspree for secure static-compatible form handling
+* Google Calendar appointment schedule embed or external booking link
+
+4.2 FORBIDDEN STACK FOR V1
+
+* React
+* Vue
+* Angular
+* Svelte
+* Tailwind
+* Bootstrap
+* jQuery
+* bundler requirement
+* Node runtime requirement for the site
+* database requirement
+* backend framework
+* CMS platform dependency
+
+4.3 ACCEPTABLE OPTIONALS ONLY IF ABSOLUTELY NEEDED
+
+* small standalone utility library only if it clearly reduces complexity
+* print stylesheet for quote summary
+* tiny HTML include pattern only if it does not introduce a runtime or
+  build dependency
+
+Default assumption: no optional dependency is used.
+
+======================================================================
+5. HIGH-LEVEL ARCHITECTURE
+==========================
+
+5.1 ARCHITECTURAL MODEL
+
+The system is a static multi-page site with a config-driven rendering
+layer and client-side interaction layer.
+
+LAYER 1: STRUCTURE
+
+* semantic page shells in HTML
+
+LAYER 2: PRESENTATION
+
+* CSS tokens, layout, theme rules, component rules, print rules
+
+LAYER 3: BEHAVIOR
+
+* JS for nav state, content rendering, quote engine, validation,
+  scheduler handling, downloadable quote generation
+
+LAYER 4: CONFIG/DATA
+
+* JS config modules defining brand identity, page toggles, service data,
+  testimonials, form endpoints, quote questions/rules, scheduler
+  behavior, SEO defaults, article placeholders, misc placeholders
+
+LAYER 5: EXTERNAL STATIC-COMPATIBLE SERVICES
+
+* Formspree
+* Google Calendar appointment schedule
+* GitHub Pages
+
+5.2 ARCHITECTURAL BENEFITS
+
+* no runtime server to maintain
+* trivial hosting
+* low operational cost
+* easy Git version control
+* easy cloning per business
+* very fast page loads
+* low dependency risk
+* straightforward debugging
+* clear ownership boundaries
+
+======================================================================
+6. REPOSITORY / FILE STRUCTURE
+==============================
+
+/site
+index.html
+services.html
+quote.html
+about.html
+contact.html
+privacy.html
+terms.html
+articles.html
+misc.html
+404.html
+
+/assets
+/css
+styles.css
+components.css
+utilities.css
+print.css
+
+```
+/js
+  app.js
+  nav.js
+  renderers.js
+  form-handlers.js
+  scheduler.js
+  seo.js
+  quote-engine.js
+  quote-ui.js
+  quote-download.js
+
+  /config
+    site-config.js
+    nav-config.js
+    services-config.js
+    testimonials-config.js
+    contact-config.js
+    scheduler-config.js
+    quote-config.js
+    seo-config.js
+    articles-config.js
+    misc-config.js
+
+/img
+  /branding
+    logo.svg
+    logo-mark.svg
+    favicon.ico
+    apple-touch-icon.png
+    og-image-default.jpg
+  /testimonials
+  /content
+  /placeholders
+```
+
+/docs
+QUICKSTART.txt
+EDITING_GUIDE.txt
+DEPLOY_GITHUB_PAGES.txt
+FORMSPREE_SETUP.txt
+GOOGLE_CALENDAR_SETUP.txt
+SITE_ARCHITECTURE.txt
+STYLE_GUIDE.txt
+CONTENT_MODEL.txt
+QUOTE_ENGINE_RULES.txt
+CHANGELOG.txt
+
+/examples
+/sample-business-a
+/sample-business-b
+
+6.1 FILE RESPONSIBILITY RULES
+
+* HTML files define structure only
+* repeated content should be rendered from config where practical
+* CSS files should be role-separated and not become one giant file
+* quote logic must live only in quote-config.js and quote-engine.js
+* form endpoint configuration must live only in contact-config.js
+* nav visibility decisions must live only in nav-config.js
+* scheduler mode must live only in scheduler-config.js
+* no business text should be scattered through many HTML files unless
+  that content is intentionally page-specific and non-reusable
+
+======================================================================
+7. PAGE INVENTORY AND PURPOSE
+=============================
+
+7.1 PUBLIC PAGES
+
+1. HOME
+2. SERVICES
+3. QUOTE
+4. ABOUT
+5. CONTACT
+6. PRIVACY
+7. TERMS
+
+7.2 HIDDEN PLACEHOLDER PAGES
+
+8. ARTICLES / WHITE PAPERS
+9. MISC
+
+These pages must exist in code and be disabled from public nav by
+default.
+
+7.3 PAGE PURPOSE DEFINITIONS
+
+HOME
+
+* hero
+* short core value proposition
+* service summary
+* differentiators / capabilities
+* process snapshot
+* featured testimonials
+* primary CTAs
+* footer
+
+SERVICES
+
+* 3 to 7 tier service display
+* service comparison or card grid
+* variable pricing mode per tier
+* deeper service descriptions
+* more testimonials
+* CTA strip
+
+QUOTE
+
+* slideshow-style questionnaire
+* one question per screen
+* back/next navigation
+* progress indication
+* branching logic
+* lead gate
+* result screen
+* downloadable quote summary
+* scheduler embed or scheduler link
+
+ABOUT
+
+* company overview
+* operating philosophy
+* process / engagement model
+* team / founder profile support
+* credibility markers
+
+CONTACT
+
+* real message form
+* single admin email destination
+* alternate contact details
+* optional scheduler CTA
+* office hours / service area if configured
+
+PRIVACY / TERMS
+
+* legal baseline pages
+
+ARTICLES / WHITE PAPERS
+
+* hidden placeholder
+* future publication index
+* article cards or list entries from config
+* no full CMS requirement in V1
+
+MISC
+
+* hidden placeholder for future custom needs
+* generic content container
+
+======================================================================
+8. NAVIGATION SYSTEM
+====================
+
+8.1 REQUIREMENT
+
+Navigation must be parametric. A modifier must be able to show/hide
+tabs without rewriting shared page structure.
+
+8.2 DEFAULT PUBLIC NAV
+
+* Home
+* Services
+* Quote
+* About
+* Contact
+
+8.3 DEFAULT HIDDEN NAV ITEMS
+
+* Articles
+* Misc
+
+8.4 FOOTER-ONLY ITEMS
+
+* Privacy
+* Terms
+
+8.5 NAV DATA MODEL
+
+nav-config.js must define for each item:
+
+* id
+* label
+* href
+* visible
+* footerVisible
+* order
+* isPrimary
+* isButtonStyle optional
+* openInNewTab optional
+
+8.6 ACTIVE STATE
+
+Each page must visually indicate the current active nav item.
+
+8.7 MOBILE NAV
+
+* collapsible menu
+* keyboard accessible
+* touch friendly
+* no JS trickery that breaks basic navigation
+* menu must function if the nav item count changes
+
+======================================================================
+9. BRANDING SYSTEM
+==================
+
+9.1 REQUIREMENT
+
+All normal professional service-site branding conventions must be
+supported.
+
+9.2 REQUIRED BRAND ELEMENTS
+
+* site name
+* legal/company name
+* logo area
+* optional logo mark
+* optional wordmark
+* favicon
+* social preview image
+* footer branding block
+* contact block
+* copyright line
+
+9.3 SITE CONFIG FIELDS
+
+site-config.js must support at minimum:
+
+* siteName
+* legalName
+* tagline
+* shortDescription
+* longDescription optional
+* logoPath
+* logoMarkPath optional
+* logoAlt
+* wordmarkEnabled
+* faviconPath
+* appleTouchIconPath
+* ogImagePath
+* footerDescription
+* primaryPhone
+* primaryEmail
+* addressLine1 optional
+* addressLine2 optional
+* city optional
+* state optional
+* postalCode optional
+* country optional
+* businessHoursText optional
+* serviceAreaText optional
+* linkedinUrl optional
+* xUrl optional
+* youtubeUrl optional
+* githubUrl optional
+* footerLinks optional
+* copyrightOwner
+* copyrightYearMode
+* heroCtas array
+* headerCta optional
+
+9.4 BRANDING RULE
+
+A new business should be able to swap its identity by editing
+site-config.js and replacing branding assets without structural rewrites.
+
+======================================================================
+10. VISUAL DESIGN SYSTEM
+========================
+
+10.1 DESIGN INTENT
+
+Visual tone must resemble a restrained industrial / technical /
+institutional presentation style.
+
+10.2 DEFAULT THEME
+
+* dark only by default
+* black background
+* white primary text
+* accent colors limited to strong red, green, blue
+* no pastel palette
+* no gradient dependence
+* no glass effects
+* no ornamental shadows as primary styling
+* no rounded-cute SaaS design language
+
+10.3 TYPOGRAPHY
+
+Default font stack:
+
+* Helvetica
+* Arial
+* sans-serif
+
+Typography goals:
+
+* high legibility
+* restrained hierarchy
+* strong headings
+* readable body text
+* consistent line lengths
+* no novelty fonts
+
+10.4 SHAPE LANGUAGE
+
+* square or near-square corners
+* hard borders
+* flat cards
+* minimal decorative flourishes
+
+10.5 LAYOUT LANGUAGE
+
+* strong grid
+* clear section spacing
+* wide desktop content gutters
+* left-aligned text by default
+* clear visual hierarchy
+* restrained use of columns
+* minimal animation
+
+10.6 COMPONENT STYLING RULES
+
+Buttons:
+
+* rectangular
+* clear states
+* strong contrast
+* size variants allowed
+* primary, secondary, tertiary styles
+
+Cards:
+
+* flat
+* bordered
+* consistent padding
+* modular
+
+Forms:
+
+* large enough targets
+* obvious labels
+* visible focus states
+* consistent validation messaging
+
+Quotes/Testimonial blocks:
+
+* clean
+* minimal decoration
+* optional image treatment
+* optional stars
+* optional company attribution
+
+10.7 CSS TOKEN REQUIREMENTS
+
+styles.css must expose root-level tokens for:
+
+* background colors
+* text colors
+* border colors
+* accent red
+* accent green
+* accent blue
+* muted text color
+* max content widths
+* spacing scale
+* border radius scale
+* border thickness
+* type scale
+* button heights
+* z-index layers
+
+10.8 OVERRIDABILITY
+
+The default theme is dark only, but CSS must be structured so a modifier
+could restyle the site later without rewriting HTML or JS.
+
+======================================================================
+11. CSS ARCHITECTURE
+====================
+
+11.1 FILE RESPONSIBILITIES
+
+styles.css
+
+* tokens
+* resets
+* base typography
+* root layout primitives
+* theme variables
+
+components.css
+
+* buttons
+* cards
+* nav
+* hero
+* forms
+* testimonial blocks
+* service tier cards
+* quote wizard panels
+* scheduler section
+* footer
+
+utilities.css
+
+* spacing helpers
+* visibility helpers
+* layout helpers
+* text helpers
+* print visibility helpers
+
+print.css
+
+* quote summary print/download presentation
+* hide nav/chrome when printing
+* preserve core quote details
+
+11.2 CSS RULES
+
+* no deeply nested selector chains
+* no selector specificity wars
+* no inline styles unless absolutely unavoidable
+* no one-off hacks without comment
+* reusable utilities allowed but must remain minimal
+
+======================================================================
+12. HTML ARCHITECTURE
+=====================
+
+12.1 PAGE MODEL
+
+Each public page must follow the same structural shell pattern:
+
+* document head
+* site header
+* nav
+* main
+* footer
+* scripts at end of body unless head placement is required
+
+12.2 SEMANTIC STRUCTURE
+
+Each page must use semantic sections and avoid div nesting without
+purpose.
+
+12.3 SHARED REGIONS
+
+The following repeated regions should be rendered consistently:
+
+* header brand area
+* primary nav
+* footer
+* legal footer links
+* CTA strips when used
+
+12.4 CONTENT INJECTION PHILOSOPHY
+
+Not every piece of content must be JS-rendered. Render from config only
+where reusability or toggling benefits are clear. Purely static page
+copy may remain in HTML if it is not widely reused.
+
+======================================================================
+13. JAVASCRIPT ARCHITECTURE
+===========================
+
+13.1 JS FILE RESPONSIBILITIES
+
+app.js
+
+* app bootstrap
+* shared initialization
+* page detection
+* config loading coordination
+
+nav.js
+
+* render or enhance nav
+* active state handling
+* mobile menu behavior
+
+renderers.js
+
+* shared render functions for services, testimonials, CTAs, footer
+* utilities for turning config objects into DOM nodes
+
+form-handlers.js
+
+* contact form behavior
+* quote lead form behavior
+* client-side validation
+* Formspree success/error state handling
+
+scheduler.js
+
+* scheduler mode handling
+* inline embed rendering or link fallback
+* scheduler CTA state control
+
+seo.js
+
+* inject page-level metadata where config-driven
+* canonical handling
+* fallback OG/Twitter tags
+
+quote-engine.js
+
+* branching logic
+* answer storage
+* estimate rules
+* scope output construction
+* service recommendation resolution
+
+quote-ui.js
+
+* one-question-per-screen flow
+* progress display
+* next/back behavior
+* field rendering by question type
+* transition state
+
+quote-download.js
+
+* quote summary text assembly
+* printable/downloadable summary generation
+
+13.2 JS RULES
+
+* keep modules small and obvious
+* avoid hidden global state
+* use a single quote state object
+* avoid async complexity unless required by embed/form behavior
+* no framework-style component system
+* all non-obvious logic must be commented
+
+======================================================================
+14. CONFIG / DATA MODEL
+=======================
+
+14.1 CONFIG PHILOSOPHY
+
+Config files are the primary editing surface for reuse.
+
+14.2 REQUIRED CONFIG FILES
+
+site-config.js
+
+* global brand and business identity
+
+nav-config.js
+
+* nav structure and visibility
+
+services-config.js
+
+* 3 to 7 service tiers and related display rules
+
+testimonials-config.js
+
+* homepage featured testimonials and services-page testimonials
+
+contact-config.js
+
+* admin email labels, form endpoints, office/contact details
+
+scheduler-config.js
+
+* inline embed mode, external link mode, labels, fallback behavior
+
+quote-config.js
+
+* question definitions, branching rules, estimate rules, assumptions,
+  output labels, downloadable summary labels
+
+seo-config.js
+
+* default metadata and page overrides
+
+articles-config.js
+
+* placeholder article entries for future use
+
+misc-config.js
+
+* placeholder misc content blocks
+
+14.3 CONFIG FORMAT RULE
+
+Use plain JS objects/arrays, not remote-fetched JSON. Reason:
+
+* easier local editing
+* no fetch path headaches
+* no async content load requirement
+* simpler GitHub Pages hosting behavior
+
+14.4 SAFE EDIT ZONES
+
+Docs must clearly mark:
+
+* safe to edit
+* edit with care
+* core system, avoid editing casually
+
+======================================================================
+15. SERVICES SYSTEM
+===================
+
+15.1 CAPABILITY
+
+The Services page must support 3 to 7 tiers. Default = 3.
+
+15.2 SERVICE TIER DATA MODEL
+
+Each service tier must support:
+
+* id
+* order
+* visible
+* title
+* shortLabel optional
+* audience / idealFor optional
+* summary
+* detailBody optional
+* features array
+* deliverables array optional
+* timelineText optional
+* priceMode
+* priceText optional
+* ctaType
+* ctaLabel optional
+* ctaTarget optional
+* badge optional
+* featured boolean
+* comparisonFlags optional
+* testimonialIds optional
+
+15.3 ALLOWED PRICE MODES
+
+* SHOW_PRICE
+* STARTING_AT
+* QUOTE_REQUIRED
+* CONTACT_SALES
+
+15.4 ALLOWED CTA TYPES
+
+* GO_TO_QUOTE
+* GO_TO_CONTACT
+* GO_TO_CUSTOM_URL
+* NO_CTA
+
+15.5 SERVICE RENDER RULES
+
+If priceMode = SHOW_PRICE
+
+* show exact price text
+
+If priceMode = STARTING_AT
+
+* prefix with “Starting at” or configured equivalent
+
+If priceMode = QUOTE_REQUIRED
+
+* suppress exact price display and promote quote CTA
+
+If priceMode = CONTACT_SALES
+
+* suppress price and promote contact CTA
+
+15.6 DEFAULT SERVICE PAGE LAYOUT
+
+* intro block
+* tier card grid or stacked comparison block
+* optional comparison matrix if configured
+* testimonials strip/list
+* CTA strip
+
+======================================================================
+16. TESTIMONIALS SYSTEM
+=======================
+
+16.1 REQUIREMENT
+
+Testimonials must support rich and simple variants.
+
+16.2 TESTIMONIAL DATA MODEL
+
+Each testimonial must support:
+
+* id
+* visible
+* featuredOnHome boolean
+* featuredOnServices boolean
+* quoteText
+* personName
+* personTitle optional
+* companyName optional
+* companyLogoPath optional
+* imagePath optional
+* imageAlt optional
+* starRating optional
+* simplifiedMode boolean
+* sortOrder
+* accentColor optional
+
+16.3 DISPLAY RULES
+
+If simplifiedMode = true
+
+* render minimal format: quote + name + company optional
+
+If simplifiedMode = false
+
+* render rich format:
+  image optional
+  name
+  title
+  company
+  star rating if present
+  quote
+
+16.4 STAR RATING RULES
+
+* range 1 to 5
+* optional
+* must not break layout if absent
+
+======================================================================
+17. HOME PAGE SPECIFICATION
+===========================
+
+17.1 REQUIRED SECTIONS
+
+* hero
+* short service summary
+* differentiators / why choose us
+* process snapshot
+* featured testimonials
+* CTA strip
+* footer
+
+17.2 HERO SYSTEM
+
+Hero must support a variable number of CTAs:
+
+* minimum 1
+* maximum 3
+
+Hero config must support:
+
+* eyebrow optional
+* headline
+* supporting text
+* CTA array
+* optional stat list
+* optional right-side visual panel or image
+
+17.3 SERVICE SUMMARY BLOCK
+
+* 3 to 7 summarized service tier previews
+* driven from services-config.js
+* each item links to Services or Quote depending on config
+
+17.4 DIFFERENTIATOR BLOCK
+
+Support 3 to 6 differentiator cards/items by config.
+
+17.5 PROCESS SNAPSHOT
+
+Support configurable process steps such as:
+
+* Discover
+* Scope
+* Execute
+* Deliver
+* Support
+
+Must be generic and editable.
+
+======================================================================
+18. SERVICES PAGE SPECIFICATION
+===============================
+
+18.1 REQUIRED SECTIONS
+
+* page intro
+* service tier cards or comparison block
+* optional FAQ placeholder section
+* expanded testimonials
+* CTA strip
+
+18.2 OPTIONAL COMPARISON TABLE
+
+Config may enable a comparison matrix across service tiers.
+
+18.3 TESTIMONIAL PRESENCE
+
+More testimonials should appear here than on the Home page by default.
+
+======================================================================
+19. ABOUT PAGE SPECIFICATION
+============================
+
+19.1 REQUIRED SECTIONS
+
+* company intro
+* operating philosophy
+* engagement model / process
+* founder/team profile block
+* trust markers / proof points optional
+* CTA strip
+
+19.2 ABOUT DATA
+
+May be mostly static HTML with selected global values injected from
+site-config.js.
+
+======================================================================
+20. CONTACT PAGE SPECIFICATION
+==============================
+
+20.1 REQUIRED SECTIONS
+
+* contact intro
+* real Formspree contact form
+* alternate contact block
+* optional scheduler CTA or embed preview
+* footer
+
+20.2 CONTACT FORM FIELDS
+
+Minimum fields:
+
+* name
+* email
+* phone optional
+* company optional
+* message
+
+20.3 VALIDATION
+
+* name required
+* email required for contact form
+* message required
+* visible success state
+* visible error state
+
+20.4 DESTINATION
+
+All submissions go to one single admin email destination via Formspree.
+
+======================================================================
+21. QUOTE WIZARD SPECIFICATION
+==============================
+
+21.1 CORE UX MODEL
+
+The quote tool must behave like a slideshow:
+
+* one question per screen
+* next/back navigation
+* visible progress
+* smooth but restrained transitions
+* no multi-question clutter per screen by default
+
+21.2 FLOW STAGES
+
+STAGE A: INTRO
+
+* brief explanation
+* estimated duration
+* start button
+
+STAGE B: QUESTION FLOW
+
+* one question per screen
+* answer capture
+* branching based on prior answers
+* next/back
+* validation before advance
+
+STAGE C: LEAD GATE
+
+* must occur before showing results
+
+STAGE D: RESULT
+
+* estimated price range
+* recommended tier or engagement type
+* detailed service/scope breakdown
+* assumptions
+* next steps
+* scheduler section
+* downloadable summary
+
+21.3 LEAD GATE REQUIREMENTS
+
+At least one of the following must be provided:
+
+* full name
+* company name
+
+AND
+
+At least one of the following must be provided:
+
+* email
+* phone
+
+Opt-in checkbox:
+
+* optional
+* not pre-checked
+* phrased politely and commercially
+* stored as part of submission if checked
+
+Recommended label:
+“Keep me informed about useful updates, relevant service offerings, and
+occasional insights.”
+
+21.4 QUOTE QUESTION TYPES
+
+The engine must support at minimum:
+
+* single select buttons
+* radio group
+* multi-select checkbox group
+* dropdown select
+* number input
+* short text input
+* yes/no
+* date estimate optional
+* textarea optional
+
+21.5 QUESTION DATA MODEL
+
+Each question must support:
+
+* id
+* visible
+* order
+* type
+* title
+* helpText optional
+* placeholder optional
+* required
+* options array if applicable
+* validationRule optional
+* nextQuestionRule
+* skipRule optional
+* answerKey
+* affectsEstimate boolean
+* affectsScope boolean
+* adminNotes optional
+
+21.6 BRANCHING LOGIC
+
+Each question may determine the next screen via:
+
+* static next question id
+* conditional next question ids
+* end-of-question-flow route
+
+Conditional branching must support:
+
+* equality checks
+* membership checks
+* numeric threshold checks
+* yes/no checks
+* multi-select contains checks
+
+21.7 QUOTE ENGINE RULE MODEL
+
+quote-config.js must define:
+
+* question set
+* branching map
+* tier recommendation rules
+* estimate rules
+* breakdown labels
+* assumptions text templates
+* next-step text templates
+* downloadable summary formatting rules
+
+21.8 ESTIMATE OUTPUT MODEL
+
+Result output must include:
+
+* recommended service tier or engagement type
+* estimated price range
+* scope summary
+* included services breakdown
+* optional exclusions / assumptions
+* suggested next step
+* scheduling CTA
+* downloadable summary CTA
+
+21.9 ESTIMATE DISCLOSURE MODEL
+
+This is an estimate, not a binding contract. A short configurable
+disclaimer should appear on the result screen and in the downloadable
+summary.
+
+21.10 BACK BUTTON BEHAVIOR
+
+* user may go back and revise answers
+* revised answers must update downstream branch outcomes
+* invalidated downstream answers must be cleared automatically
+
+21.11 PROGRESS INDICATOR
+
+Progress indicator must be based on current branch position, not naive
+total-question count, if branch-aware progress is practical. If not,
+use a simpler stable approximation.
+
+======================================================================
+22. QUOTE STATE MANAGEMENT
+==========================
+
+22.1 QUOTE STATE OBJECT
+
+A single state object must hold:
+
+* currentQuestionId
+* answers
+* visitedQuestions
+* recommendedTier
+* estimateRange
+* breakdown
+* assumptions
+* leadGateData
+* optInStatus
+* resultTimestamp
+
+22.2 STATE STORAGE
+
+V1 requirement:
+
+* in-memory state during active session
+
+Optional support:
+
+* localStorage persistence if enabled via config
+
+If localStorage is used:
+
+* keep only minimal non-sensitive data unless explicitly desired
+* never store more than needed
+
+22.3 RESET RULE
+
+A full reset action must be available.
+
+======================================================================
+23. QUOTE DOWNLOADABLE SUMMARY
+==============================
+
+23.1 REQUIREMENT
+
+The user must be able to obtain a downloadable quote summary.
+
+23.2 ACCEPTABLE IMPLEMENTATION METHODS
+
+Preferred V1:
+
+* print-optimized HTML summary page / print-to-PDF workflow
+* downloadable text or HTML file if needed
+
+Do not require heavy PDF libraries in V1.
+
+23.3 REQUIRED SUMMARY CONTENT
+
+* business/site name
+* quote title
+* date/time
+* lead name and/or company if provided
+* recommended service tier
+* estimated range
+* scope summary
+* selected answers summary
+* assumptions
+* next steps
+* contact details
+* scheduling prompt
+
+23.4 SUMMARY OUTPUT RULE
+
+The output must be clean enough that a user or sales operator can save
+it as a PDF without layout breaking.
+
+======================================================================
+24. FORMS AND LEAD CAPTURE
+==========================
+
+24.1 FORM STRATEGY
+
+Use two separate Formspree forms:
+
+FORM A: CONTACT FORM
+
+* used on Contact page
+
+FORM B: QUOTE LEAD FORM
+
+* used during quote flow before result reveal
+
+24.2 REASONS FOR SPLIT
+
+* cleaner data organization
+* easier export
+* easier filtering
+* easier admin workflow
+
+24.3 FORM CONFIG MODEL
+
+contact-config.js must support:
+
+* contactFormEndpoint
+* quoteLeadFormEndpoint
+* adminEmailLabel
+* successMessageContact
+* successMessageQuote
+* errorMessageGeneric
+* enableSpamTrap
+* privacyNoticeText
+* optInLabel
+
+24.4 SECURITY / PRIVACY MODEL
+
+Lead data stays private because submission handling occurs through
+Formspree rather than static front-end storage.
+
+24.5 SPAM MITIGATION
+
+Support:
+
+* hidden honeypot field optional
+* Formspree native spam protection
+* basic client-side validation
+* rate-limiting delegated to provider
+
+24.6 QUOTE LEAD SUBMISSION TIMING
+
+Lead submission should occur:
+
+* after questionnaire completion
+* at lead gate submit
+* before result is rendered
+
+If submission fails:
+
+* show user-friendly error
+* allow retry
+* do not silently discard lead gate data
+
+======================================================================
+25. SCHEDULER INTEGRATION
+=========================
+
+25.1 REQUIREMENT
+
+The quote result must support either:
+
+MODE A: inline scheduler embed
+MODE B: fallback external scheduler link opening in new tab
+
+25.2 SCHEDULER CONFIG FIELDS
+
+scheduler-config.js must support:
+
+* mode
+* schedulerUrl
+* embedHtml optional
+* schedulerHeading
+* schedulerBodyText
+* fallbackLinkLabel
+* openInNewTab boolean
+
+25.3 RENDER RULE
+
+If mode = INLINE_EMBED and embed code is present:
+
+* render inline scheduler section on result page
+
+Else:
+
+* render button/link opening scheduler in new tab
+
+25.4 CONTACT PAGE SUPPORT
+
+Optional scheduler CTA may also appear on Contact page if enabled.
+
+======================================================================
+26. ARTICLES / WHITE PAPERS PLACEHOLDER
+=======================================
+
+26.1 REQUIREMENT
+
+The system must include a hidden publication placeholder architecture for
+future articles and white papers.
+
+26.2 DEFAULT STATE
+
+* page exists
+* hidden from nav
+* hidden from homepage unless explicitly enabled
+
+26.3 ARTICLE DATA MODEL
+
+Each article entry must support:
+
+* id
+* visible
+* title
+* category
+* summary
+* publishDate
+* href
+* thumbnailPath optional
+* featured boolean
+
+26.4 V1 LIMITATION
+
+This is a placeholder index only. No CMS or article generation pipeline
+is required.
+
+======================================================================
+27. MISC PLACEHOLDER PAGE
+=========================
+
+27.1 REQUIREMENT
+
+A hidden generic page must exist for future arbitrary use.
+
+27.2 DEFAULT STATE
+
+* hidden from public nav
+* basic shell exists
+* content driven by misc-config.js or static placeholder HTML
+
+======================================================================
+28. SEO / METADATA PACKAGE
+==========================
+
+28.1 REQUIRED SEO BASELINE
+
+Each public page must support:
+
+* title tag
+* meta description
+* canonical URL
+* Open Graph title
+* Open Graph description
+* Open Graph image
+* Twitter/X card metadata
+* favicon
+* apple touch icon
+* robots default
+* page-level override support
+
+28.2 STRUCTURED DATA
+
+Support basic Organization and Website structured data if implemented
+cleanly. Do not bloat V1 with excessive schema variants.
+
+28.3 SEO CONFIG MODEL
+
+seo-config.js must support:
+
+* siteUrl
+* defaultTitle
+* titleSuffix
+* defaultDescription
+* defaultOgImage
+* defaultRobots
+* pageOverrides map
+* organizationName
+* organizationLogo
+* socialProfiles array optional
+
+28.4 404 PAGE
+
+A proper 404 page must exist and inherit core branding.
+
+======================================================================
+29. ACCESSIBILITY REQUIREMENTS
+==============================
+
+29.1 BASELINE GOAL
+
+Meet a practical, sane accessibility baseline appropriate for a serious
+business site.
+
+29.2 REQUIRED ACCESSIBILITY FEATURES
+
+* semantic headings in correct order
+* labeled form fields
+* visible focus states
+* keyboard-navigable nav
+* keyboard-navigable quote wizard
+* sufficient color contrast
+* alt text support for meaningful images
+* buttons not disguised as non-interactive elements
+* link text that is understandable out of context
+* error messages associated with invalid fields
+* no motion dependence for comprehension
+
+29.3 MOBILE ACCESSIBILITY
+
+* tap targets must be large enough
+* no horizontal overflow in standard usage
+* forms must remain usable on small screens
+
+======================================================================
+30. PERFORMANCE REQUIREMENTS
+============================
+
+30.1 GOAL
+
+Site must load and render quickly with minimal asset weight.
+
+30.2 PERFORMANCE RULES
+
+* no heavy framework bundle
+* compress images before inclusion
+* avoid huge hero media by default
+* keep JS small and modular
+* do not block rendering with unnecessary scripts
+* defer non-critical JS where appropriate
+
+30.3 ASSET DISCIPLINE
+
+Brand assets and testimonial images must be optimized before commit.
+
+======================================================================
+31. SECURITY / RISK BASELINE
+============================
+
+31.1 CORE SECURITY POSTURE
+
+This is a static site. Its security model is largely:
+
+* minimal moving parts
+* no backend code to harden in repo
+* secure external providers for forms/scheduling
+
+31.2 SECURITY RULES
+
+* do not place secrets in the repo
+* do not place API keys in client JS
+* assume all front-end logic is visible
+* do not claim quote logic is hidden
+* do not over-collect sensitive data
+* minimize localStorage use
+* sanitize rendered text if any HTML injection path is allowed
+
+31.3 PRIVACY RULES
+
+* collect only information actually needed
+* keep consent checkbox optional and explicit
+* provide privacy page
+* avoid unnecessary persistent client-side storage
+
+======================================================================
+32. CODE COMMENTING AND LEGIBILITY STANDARD
+===========================================
+
+32.1 COMMENTING REQUIREMENT
+
+Code must be heavily enough commented that a future modifier can quickly
+understand what to edit.
+
+32.2 REQUIRED COMMENT TYPES
+
+TYPE A: SECTION HEADER COMMENTS
+
+* explain major file regions
+
+TYPE B: EDITOR NOTES
+
+* explain what a modifier can safely change
+
+TYPE C: LOGIC COMMENTS
+
+* explain non-obvious behavior and constraints
+
+32.3 COMMENTING STYLE RULES
+
+* comments must explain intent, not restate obvious syntax
+* comments must flag safe edit zones
+* hacks must be documented with reason
+* no abandoned commented-out code blocks in production files
+
+32.4 EXAMPLE SAFE EDIT MARKERS
+
+Use markers such as:
+
+* SAFE TO EDIT
+* EDIT WITH CARE
+* CORE SYSTEM LOGIC
+
+======================================================================
+33. DOCUMENTATION REQUIREMENTS
+==============================
+
+33.1 REQUIRED DOC FILES
+
+QUICKSTART.txt
+
+* shortest path to clone and launch
+
+EDITING_GUIDE.txt
+
+* what files change common business content
+
+DEPLOY_GITHUB_PAGES.txt
+
+* exact deployment procedure
+
+FORMSPREE_SETUP.txt
+
+* create forms, paste endpoints, test submissions
+
+GOOGLE_CALENDAR_SETUP.txt
+
+* create schedule, embed or link, test
+
+SITE_ARCHITECTURE.txt
+
+* explains how structure, style, behavior, and config interact
+
+STYLE_GUIDE.txt
+
+* tokens, spacing, buttons, cards, typography
+
+CONTENT_MODEL.txt
+
+* config schemas and examples
+
+QUOTE_ENGINE_RULES.txt
+
+* how branching and estimate logic works
+
+CHANGELOG.txt
+
+* track template changes over time
+
+33.2 DOCUMENTATION QUALITY RULE
+
+Docs must be concise, exact, and operational. No fluff.
+
+======================================================================
+34. TEMPLATE REUSE WORKFLOW
+===========================
+
+34.1 REUSE MODEL
+
+This project must be maintained as a master template repository.
+
+34.2 NEW BUSINESS SETUP FLOW
+
+1. Duplicate template repository
+2. Rename repo
+3. Replace branding assets
+4. Edit site-config.js
+5. Edit nav-config.js
+6. Edit services-config.js
+7. Edit testimonials-config.js
+8. Edit contact-config.js
+9. Edit scheduler-config.js
+10. Edit quote-config.js
+11. Configure Formspree endpoints
+12. Configure Google Calendar booking
+13. Test locally
+14. Enable GitHub Pages
+15. Attach custom domain if applicable
+16. Verify forms, quote flow, scheduler, metadata, mobile behavior
+
+34.3 MODIFIER GOAL
+
+Most new-business customization should happen without touching core JS
+logic or structural HTML.
+
+======================================================================
+35. LOCAL DEVELOPMENT MODEL
+===========================
+
+35.1 REQUIREMENT
+
+Site must be easy to run locally with trivial setup.
+
+35.2 ACCEPTABLE LOCAL METHODS
+
+* open static files directly if behavior supports it
+* use lightweight static local server if needed for consistent behavior
+
+35.3 NO COMPLEX DEV ENVIRONMENT
+
+No package install, dependency graph, or build pipeline should be
+required to understand basic site behavior.
+
+======================================================================
+36. DEPLOYMENT MODEL
+====================
+
+36.1 GITHUB PAGES DEPLOYMENT
+
+The site must deploy cleanly via GitHub Pages from repository content.
+
+36.2 CUSTOM DOMAIN SUPPORT
+
+Architecture must assume future custom domain use.
+
+36.3 DEPLOYMENT DISCIPLINE
+
+* all asset paths must be stable
+* no environment-secret dependency
+* test canonical URLs if domain changes
+* verify 404 page and metadata after deployment
+
+======================================================================
+37. ACCEPTANCE CRITERIA
+=======================
+
+37.1 ARCHITECTURE ACCEPTANCE
+
+PASS if:
+
+* site is fully static
+* no framework is required
+* config files drive common modifications
+* services support 3 to 7 tiers
+* hidden Articles and Misc pages exist
+* forms and scheduling work through static-compatible services
+
+37.2 UX ACCEPTANCE
+
+PASS if:
+
+* site feels clean, corporate, direct, and dark
+* desktop experience is strong
+* mobile is fully usable
+* one-question-per-screen quote flow is clear
+* user can revise prior answers
+* result screen provides estimate, breakdown, scope, and next steps
+
+37.3 FORM ACCEPTANCE
+
+PASS if:
+
+* contact form submits successfully
+* quote lead gate submits successfully
+* one admin destination is configured
+* user sees success/error states
+* optional opt-in state is captured
+
+37.4 QUOTE ACCEPTANCE
+
+PASS if:
+
+* branch logic works
+* invalid downstream answers clear when path changes
+* result renders correctly
+* downloadable summary is usable
+* scheduler appears inline or via fallback link as configured
+
+37.5 TEMPLATE ACCEPTANCE
+
+PASS if:
+
+* a new business can be stood up primarily by editing config/data files
+* services, nav, CTAs, branding, testimonials, scheduler, and quote
+  rules can be changed without structural rewrites
+
+======================================================================
+38. TEST PLAN
+=============
+
+38.1 REQUIRED TESTING AREAS
+
+* desktop layout
+* mobile layout
+* nav visibility toggles
+* service tier counts from 3 to 7
+* hero CTA counts from 1 to 3
+* hidden page toggles
+* contact form submission
+* quote lead submission
+* scheduler inline mode
+* scheduler fallback mode
+* quote branch paths
+* back-button path invalidation
+* downloadable summary formatting
+* print stylesheet output
+* metadata output
+* 404 page behavior
+
+38.2 BROWSER TESTING
+
+Test on current major evergreen browsers at minimum:
+
+* Chrome
+* Safari
+* Firefox
+* Edge
+
+38.3 DEVICE / VIEWPORT TESTING
+
+At minimum:
+
+* large desktop
+* laptop
+* tablet
+* narrow mobile viewport
+
+======================================================================
+39. EXTENSIBILITY RULES
+=======================
+
+39.1 FUTURE EXTENSIONS ALLOWED
+
+* resources page activation
+* white paper index expansion
+* FAQ expansion
+* light theme support later
+* CRM sync later
+* analytics later
+* downloadable PDF enhancement later
+* additional service-page layouts later
+
+39.2 FUTURE EXTENSIONS DISCOURAGED WITHOUT STRONG REASON
+
+* framework migration
+* CMS adoption
+* excessive animation
+* visual redesign that breaks template consistency
+* backend addition merely for convenience
+* plugin sprawl
+
+39.3 BEDROCK RULE
+
+Any extension must preserve the core values:
+
+* static-first
+* config-first
+* legible
+* minimal
+* reusable
+* professional
+
+======================================================================
+40. NON-NEGOTIABLE IMPLEMENTATION RULES
+=======================================
+
+1. No framework dependency.
+2. No build step required for normal use.
+3. No secrets in front-end code.
+4. No business-critical content scattered randomly across pages.
+5. Services must support 3 to 7 tiers.
+6. Quote flow must be one question per screen.
+7. Lead gate must require:
+
+   * name OR company
+   * email OR phone
+8. Result must include:
+
+   * estimate range
+   * scope breakdown
+   * next steps
+9. Downloadable quote summary must exist.
+10. Articles and Misc placeholders must exist but remain hidden by
+    default.
+11. Testimonials must support both rich and simple modes.
+12. Hero CTA count must be configurable.
+13. Navigation visibility must be configurable.
+14. Site must ship dark by default.
+15. Code must be commented for future modifiers.
+16. Docs must explain setup, editing, deployment, forms, scheduler, and
+    quote logic.
+
+======================================================================
+41. IMPLEMENTATION END STATE
+============================
+
+The finished system is a hardened static website template for service
+businesses that can be cloned, branded, configured, and deployed quickly
+without architectural rewrites.
+
+It provides the minimum complete professional website stack for a
+service business:
+
+* credible public website
+* configurable services presentation
+* structured quote intake and instant estimate tool
+* private lead capture
+* scheduling handoff
+* future publication placeholder
+* legal baseline
+* SEO baseline
+* documentation baseline
+
+It is intentionally simple, but not simplistic.
+It is intentionally restrained, but not bare.
+It is intended to be durable bedrock.

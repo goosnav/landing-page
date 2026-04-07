@@ -1,0 +1,67 @@
+/*
+ * ENTERPRISE STATIC SERVICE SITE TEMPLATE
+ * SAFE TO EDIT: add only a small number of reusable helper classes
+ * EDIT WITH CARE: do not let this file become a utility framework clone
+ */
+
+.u-border-top {
+  border-top: var(--border-thickness) solid var(--color-border);
+}
+
+.u-border-bottom {
+  border-bottom: var(--border-thickness) solid var(--color-border);
+}
+
+.u-surface {
+  background: var(--color-surface);
+}
+
+.u-bg-alt {
+  background: var(--color-bg-alt);
+}
+
+.u-text-muted {
+  color: var(--color-muted);
+}
+
+.u-text-subtle {
+  color: var(--color-subtle);
+}
+
+.u-text-red {
+  color: var(--color-red);
+}
+
+.u-text-green {
+  color: var(--color-green);
+}
+
+.u-text-blue {
+  color: var(--color-blue);
+}
+
+.u-max-sm {
+  max-width: var(--max-width-sm);
+}
+
+.u-max-md {
+  max-width: var(--max-width-md);
+}
+
+.u-max-lg {
+  max-width: var(--max-width-lg);
+}
+
+.u-flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.u-hidden {
+  display: none !important;
+}
+
+.u-print-only {
+  display: none !important;
+}

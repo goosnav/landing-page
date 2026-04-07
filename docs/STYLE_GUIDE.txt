@@ -1,0 +1,82 @@
+ENTERPRISE STATIC SERVICE SITE TEMPLATE
+STYLE GUIDE
+
+VISUAL INTENT
+
+- restrained
+- corporate
+- technical
+- dark by default
+- flat, bordered surfaces
+- square or near-square corners
+
+TYPOGRAPHY
+
+Primary stack:
+
+- Helvetica
+- Arial
+- sans-serif
+
+Type rules:
+
+- strong headings
+- readable body text
+- left-aligned by default
+- no novelty or decorative fonts
+
+COLOR SYSTEM
+
+Primary background:
+- near black
+
+Primary text:
+- off-white
+
+Muted text:
+- cool gray
+
+Accents:
+- red
+- green
+- blue
+
+Do not introduce:
+
+- pastel palettes
+- glassmorphism
+- ornamental gradients as the primary style language
+
+COMPONENT RULES
+
+Buttons:
+- rectangular
+- strong contrast
+- primary, secondary, and tertiary states only
+
+Cards:
+- flat
+- bordered
+- consistent internal padding
+
+Forms:
+- clear labels
+- visible focus rings
+- validation state shown through border and message
+
+NAVIGATION
+
+- sticky header
+- mobile-safe collapse
+- active page state visible
+- quote item may use button treatment
+
+PRINT
+
+- print.css hides nav and chrome
+- quote summary remains readable when saved as PDF
+
+RESPONSIVE RULE
+
+Desktop is primary, but the layout must remain coherent on tablet and
+mobile widths. No horizontal overflow is acceptable in normal use.

@@ -1,0 +1,91 @@
+ENTERPRISE STATIC SERVICE SITE TEMPLATE
+SITE ARCHITECTURE
+
+ARCHITECTURE GOAL
+
+Provide a reusable static website bedrock for service businesses using:
+
+- semantic HTML
+- vanilla CSS
+- vanilla JavaScript
+- config-first content
+- Formspree for secure static forms
+- Google Calendar scheduling handoff
+
+SOURCE LAYOUT
+
+- site/
+  semantic page shells only
+- assets/css/
+  design system, components, utilities, print rules
+- assets/js/
+  shared behavior and page bootstrap
+- assets/js/config/
+  business content and rule contracts
+- assets/img/
+  branding and content assets
+- docs/
+  operational guidance
+- tools/
+  zero-dependency build and validation scripts
+
+LAYER MODEL
+
+LAYER 1: HTML
+- Page shells
+- Shared header/main/footer structure
+- Section render targets
+
+LAYER 2: CSS
+- styles.css: tokens, reset, base layout, typography
+- components.css: nav, buttons, cards, forms, quote surfaces, footer
+- utilities.css: small helper set only
+- print.css: print-friendly quote summary output
+
+LAYER 3: SHARED JS
+- renderers.js: common rendering utilities and page sections
+- nav.js: shared header/nav rendering and mobile behavior
+- form-handlers.js: validation and Formspree submission
+- scheduler.js: scheduler rendering
+- seo.js: metadata hydration
+- app.js: page detection and bootstrap
+
+LAYER 4: QUOTE JS
+- quote-engine.js: deterministic quote logic
+- quote-ui.js: one-question-per-screen UI
+- quote-download.js: HTML summary download and print output
+
+LAYER 5: CONFIG
+- site-config.js
+- nav-config.js
+- services-config.js
+- testimonials-config.js
+- contact-config.js
+- scheduler-config.js
+- quote-config.js
+- seo-config.js
+- articles-config.js
+- misc-config.js
+
+IMPORTANT DECISION
+
+The source specification requires page shells in site/ and shared assets
+in assets/. GitHub Pages needs published HTML at the artifact root. To
+keep the required source layout without introducing a bundler, the repo
+uses tools/build-site.mjs to assemble dist/ for deployment.
+
+This is a conservative, low-bloat compromise:
+
+- source remains easy to read
+- runtime stays purely static
+- deployment remains GitHub Pages compatible
+- no framework or package dependency was added
+
+RUNTIME MODEL
+
+The site uses a single explicit namespace:
+
+window.SiteTemplate
+
+This avoids hidden globals while keeping the codebase legible for future
+modifiers.

@@ -1,0 +1,1245 @@
+ENTERPRISE STATIC SERVICE SITE TEMPLATE
+SPRINT PLAN / IMPLEMENTATION ROADMAP
+VERSION: 1.0
+FORMAT: PLAIN TEXT
+PROJECT TYPE: STATIC MULTI-PAGE WEBSITE TEMPLATE
+STACK: HTML / CSS / JS + GITHUB PAGES + FORMSPREE + GOOGLE CALENDAR
+GOAL: CREATE A HARDENED, REUSABLE, ENTERPRISE-GRADE BASE WEBSITE TEMPLATE
+DELIVERY STYLE: LOW-BLOAT, HIGH-LEGIBILITY, TEST-DRIVEN EXECUTION
+
+======================================================================
+0. EXECUTION MODEL
+======================================================================
+
+This plan assumes disciplined engineering execution, not ad hoc page
+building.
+
+The sprints are arranged to de-risk the project in the correct order:
+
+1. architecture first
+2. design system second
+3. shared shell and navigation third
+4. core public pages next
+5. data/config-driven rendering after structure is stable
+6. quote engine after public shell is mature
+7. external integrations after internal behavior is stable
+8. hardening, SEO, accessibility, and documentation last
+
+This is the correct order because:
+- it minimizes rework
+- it prevents “template rot”
+- it forces core abstractions to prove themselves early
+- it preserves simplicity
+- it keeps styling and logic from becoming entangled
+
+Sprint duration assumption:
+- 1 sprint = 1 focused work block of roughly 4-7 engineering days
+- a solo engineer could compress or expand this as needed
+- the order should not materially change
+
+Each sprint contains:
+- objective
+- scope
+- implementation tasks
+- test requirements
+- exit criteria
+- failure modes to watch
+
+======================================================================
+1. ENGINEERING RULES FOR ALL SPRINTS
+======================================================================
+
+These rules apply across the full project.
+
+1. No framework creep.
+2. No speculative features.
+3. No duplicated business content unless intentionally page-specific.
+4. No hardcoded services/testimonials/contact data scattered across pages.
+5. No unowned CSS hacks.
+6. No hidden global JS state.
+7. No adding features without defining test coverage.
+8. Every sprint must end in a working, reviewable state.
+9. Every sprint must preserve GitHub Pages compatibility.
+10. Every sprint must improve the template, not just one instance.
+
+Required quality bars for every sprint:
+- works on desktop
+- remains usable on mobile
+- has no broken nav paths
+- no console errors
+- no layout explosions at standard viewport widths
+- code is commented where future modifiers would otherwise get confused
+
+======================================================================
+2. SPRINT 0 - PROJECT FOUNDATION / REPO BOOTSTRAP
+======================================================================
+
+SPRINT OBJECTIVE
+
+Establish the repository, file structure, conventions, and engineering
+guardrails before any UI or business logic is built.
+
+WHY THIS SPRINT EXISTS
+
+Most web projects become messy because they start with page markup before
+architecture is stabilized. That is backward. The repo must be made
+intelligible first.
+
+SCOPE
+
+- initialize repository structure
+- create final directory layout
+- create placeholder HTML pages
+- create empty but named CSS/JS/config/doc files
+- define naming conventions
+- define safe edit zones
+- define commenting conventions
+- define branch and commit conventions
+- define testing checklist skeleton
+
+IMPLEMENTATION TASKS
+
+1. Create repo root and final folder structure.
+2. Create all required HTML shells:
+   - index.html
+   - services.html
+   - quote.html
+   - about.html
+   - contact.html
+   - privacy.html
+   - terms.html
+   - articles.html
+   - misc.html
+   - 404.html
+3. Create CSS files:
+   - styles.css
+   - components.css
+   - utilities.css
+   - print.css
+4. Create JS files:
+   - app.js
+   - nav.js
+   - renderers.js
+   - form-handlers.js
+   - scheduler.js
+   - seo.js
+   - quote-engine.js
+   - quote-ui.js
+   - quote-download.js
+5. Create config files:
+   - site-config.js
+   - nav-config.js
+   - services-config.js
+   - testimonials-config.js
+   - contact-config.js
+   - scheduler-config.js
+   - quote-config.js
+   - seo-config.js
+   - articles-config.js
+   - misc-config.js
+6. Create docs placeholders:
+   - QUICKSTART.txt
+   - EDITING_GUIDE.txt
+   - DEPLOY_GITHUB_PAGES.txt
+   - FORMSPREE_SETUP.txt
+   - GOOGLE_CALENDAR_SETUP.txt
+   - SITE_ARCHITECTURE.txt
+   - STYLE_GUIDE.txt
+   - CONTENT_MODEL.txt
+   - QUOTE_ENGINE_RULES.txt
+   - CHANGELOG.txt
+7. Add code headers and “safe to edit / edit with care / core logic”
+   comment conventions into all starter files.
+8. Create a minimal README or QUICKSTART entry describing how to open the
+   project locally.
+
+TESTS
+
+FOUNDATION TESTS
+- every expected file exists
+- page filenames are consistent
+- no broken relative asset paths in starter HTML
+- all pages can be opened locally without fatal errors
+- no JS files throw parse errors when included
+- no CSS files fail to load
+
+MANUAL TESTS
+- open each page shell in browser
+- verify no missing-file 404s for linked assets
+- verify no console syntax errors
+
+EXIT CRITERIA
+- repo structure is final enough that later work plugs into it cleanly
+- all files exist and are named correctly
+- baseline shells load without errors
+- conventions are documented
+
+FAILURE MODES
+- random file naming
+- mixing business data into page shells immediately
+- skipping docs until “later”
+- starting CSS before token system is defined
+
+======================================================================
+3. SPRINT 1 - CORE DESIGN SYSTEM / CSS BEDROCK
+======================================================================
+
+SPRINT OBJECTIVE
+
+Create the full visual bedrock: reset, tokens, typography, layout
+scales, button styles, cards, forms, spacing, color system, and print
+baseline.
+
+WHY THIS SPRINT EXISTS
+
+Without a disciplined design system early, every page becomes a custom
+snowflake. This sprint prevents that.
+
+SCOPE
+
+- root CSS tokens
+- base typography
+- spacing scale
+- container widths
+- section rhythm
+- buttons
+- cards
+- form fields
+- tables / lists baseline
+- focus states
+- basic print rules
+
+IMPLEMENTATION TASKS
+
+1. Create CSS reset / normalization baseline.
+2. Define root design tokens:
+   - colors
+   - spacing
+   - typography sizes
+   - max widths
+   - borders
+   - radii
+   - z-index
+3. Implement base body, heading, paragraph, link, and list styles.
+4. Implement shared layout classes:
+   - page shell
+   - section
+   - container
+   - grid
+   - stack
+5. Implement button variants:
+   - primary
+   - secondary
+   - tertiary
+   - destructive only if actually needed
+6. Implement card variants:
+   - generic content card
+   - service tier card
+   - testimonial card
+   - quote result card
+7. Implement form field system:
+   - label
+   - input
+   - select
+   - textarea
+   - helper text
+   - validation state
+8. Implement utility classes minimally.
+9. Implement print.css for summary print-friendly behavior.
+10. Document token meanings in STYLE_GUIDE.
+
+TESTS
+
+DESIGN SYSTEM TESTS
+- default dark theme renders with correct contrast
+- all button variants are legible
+- all form fields are visibly interactive
+- focus state is visible with keyboard navigation
+- section spacing is consistent across pages
+- typography hierarchy is stable
+- print stylesheet hides nav/chrome and keeps main content readable
+
+MANUAL TESTS
+- inspect buttons on hover/focus/active
+- inspect forms on narrow mobile width
+- print preview a sample page
+- verify pure black/white/red/green/blue palette behaves correctly
+
+EXIT CRITERIA
+- any page can now be built without inventing fresh styling
+- visual language is coherent
+- CSS is modular and understandable
+- print mode is viable as a base
+
+FAILURE MODES
+- token system too vague
+- overbuilding utilities into pseudo-tailwind
+- mixing component rules into base token file
+- weak focus states
+- decorative styling creep
+
+======================================================================
+4. SPRINT 2 - GLOBAL SHELL / HEADER / FOOTER / NAVIGATION
+======================================================================
+
+SPRINT OBJECTIVE
+
+Build the shared page shell and navigation system so every page has a
+stable frame.
+
+WHY THIS SPRINT EXISTS
+
+Global shell errors multiply across every page. Stabilizing them early
+reduces downstream defects dramatically.
+
+SCOPE
+
+- site header
+- logo area
+- nav
+- mobile menu
+- footer
+- footer legal links
+- nav active states
+- nav visibility config
+
+IMPLEMENTATION TASKS
+
+1. Build standard page shell markup pattern for all pages.
+2. Implement branded header structure:
+   - logo area
+   - optional header CTA
+   - nav region
+3. Build nav system driven by nav-config.js.
+4. Support visible vs hidden nav items.
+5. Support footer-only items.
+6. Implement active-page highlighting.
+7. Implement mobile nav behavior.
+8. Implement footer with:
+   - logo/site name
+   - short description
+   - contact info
+   - legal links
+   - social links optional
+9. Ensure Articles and Misc exist but are hidden from nav by default.
+10. Verify shell consistency across all pages.
+
+TESTS
+
+NAV TESTS
+- active nav item is correct on every page
+- hidden pages do not appear in public nav
+- footer-only links appear only in footer
+- nav order respects config
+- mobile nav opens/closes correctly
+- mobile nav remains usable with 3, 5, or 7 visible items
+- logo and brand region do not break on narrow widths
+
+MANUAL TESTS
+- keyboard tab through header/nav
+- open/close mobile nav
+- click through every page
+- verify no dead links
+
+EXIT CRITERIA
+- all pages share a stable shell
+- nav is parametric
+- footer is complete and professional
+- hidden page architecture exists
+
+FAILURE MODES
+- hardcoding nav separately on every page
+- mobile nav that only works for current item count
+- footer inconsistency across pages
+- forgetting active-state logic
+
+======================================================================
+5. SPRINT 3 - CONFIG SYSTEM / DATA CONTRACTS / CONTENT RENDERERS
+======================================================================
+
+SPRINT OBJECTIVE
+
+Create the config-driven architecture that makes the site reusable across
+many businesses.
+
+WHY THIS SPRINT EXISTS
+
+This is the actual template-enabling sprint. Without it, the site is
+just a one-off brochure.
+
+SCOPE
+
+- finalize config schemas
+- create example data
+- create renderers for services, testimonials, CTAs, footer data, etc.
+- document safe edit zones
+- ensure config changes propagate correctly
+
+IMPLEMENTATION TASKS
+
+1. Define complete schema for each config file.
+2. Populate sample content in:
+   - site-config.js
+   - nav-config.js
+   - services-config.js
+   - testimonials-config.js
+   - contact-config.js
+   - scheduler-config.js
+   - seo-config.js
+   - articles-config.js
+   - misc-config.js
+3. Build renderer helpers that transform config into DOM output.
+4. Add data validation guards where reasonable:
+   - missing required fields
+   - invalid service count
+   - unsupported CTA type
+   - unsupported price mode
+5. Wire header/footer text to config-driven content where appropriate.
+6. Render service previews and testimonials from config-driven data.
+7. Document config model in CONTENT_MODEL.txt.
+
+TESTS
+
+CONFIG TESTS
+- changing site name updates all intended regions
+- hiding a nav item removes it from public nav
+- increasing service count from 3 to 7 renders correctly
+- reducing service count back to 3 does not leave orphan layout gaps
+- testimonial simple mode renders correctly
+- testimonial rich mode renders correctly
+- unsupported config values fail gracefully or clearly
+
+MANUAL TESTS
+- swap sample business values and verify site reflects them
+- toggle header CTA count from 1 to 3
+- toggle hidden Articles page on and off
+- verify logo/branding replacement works
+
+EXIT CRITERIA
+- common business customization is now primarily data/config driven
+- service count is parametric
+- CTA count is parametric
+- testimonial richness is parametric
+- docs explain how to edit content safely
+
+FAILURE MODES
+- config schema too loose
+- renderer logic too magical or opaque
+- partial config-driven behavior mixed with hidden hardcoded content
+- no handling for invalid config combinations
+
+======================================================================
+6. SPRINT 4 - HOME PAGE IMPLEMENTATION
+======================================================================
+
+SPRINT OBJECTIVE
+
+Build a complete, polished Home page using the design system and config
+system.
+
+WHY THIS SPRINT EXISTS
+
+The Home page proves whether the template actually feels like a real
+business site rather than a skeleton.
+
+SCOPE
+
+- hero
+- hero CTA logic
+- service summary
+- differentiators
+- process snapshot
+- featured testimonials
+- CTA strip
+
+IMPLEMENTATION TASKS
+
+1. Build hero section with configurable:
+   - eyebrow optional
+   - headline
+   - supporting copy
+   - 1-3 CTAs
+   - optional supporting stat list
+   - optional right-side visual block
+2. Build service summary section from services-config.js.
+3. Build differentiator section from configurable items.
+4. Build process section with configurable process steps.
+5. Build homepage featured testimonials section.
+6. Build homepage CTA strip.
+7. Tune spacing and rhythm for desktop-first presentation.
+
+TESTS
+
+HOME PAGE TESTS
+- hero supports 1, 2, and 3 CTA states without layout breakage
+- service summary supports 3 to 7 services
+- testimonial featured-only filter works
+- process step count variation does not break layout
+- all homepage CTAs route correctly
+- no section creates horizontal overflow on mobile
+
+MANUAL TESTS
+- inspect desktop composition at wide widths
+- inspect mobile stacking
+- verify home feels restrained, not trendy
+- verify section hierarchy reads correctly without excess copy
+
+EXIT CRITERIA
+- Home page is credible, clean, and production-grade
+- CTA behavior is stable
+- config-driven content is working in a real page
+- layout holds across common viewport widths
+
+FAILURE MODES
+- hero overdesigned
+- services summary too rigid for tier variation
+- testimonials coded one-off instead of reusable
+- process block becoming a custom gimmick
+
+======================================================================
+7. SPRINT 5 - SERVICES PAGE IMPLEMENTATION
+======================================================================
+
+SPRINT OBJECTIVE
+
+Build the Services page with full tier flexibility and pricing/CTA mode
+logic.
+
+WHY THIS SPRINT EXISTS
+
+The Services page is central to the business model and must prove the
+template handles real service packaging cleanly.
+
+SCOPE
+
+- service tier cards or grid
+- pricing mode logic
+- CTA logic
+- optional comparison mode
+- more testimonials
+- CTA strip
+
+IMPLEMENTATION TASKS
+
+1. Build Services page intro.
+2. Build tier rendering engine supporting 3 to 7 tiers.
+3. Implement price mode behaviors:
+   - SHOW_PRICE
+   - STARTING_AT
+   - QUOTE_REQUIRED
+   - CONTACT_SALES
+4. Implement CTA behaviors:
+   - GO_TO_QUOTE
+   - GO_TO_CONTACT
+   - GO_TO_CUSTOM_URL
+   - NO_CTA
+5. Build optional badge / featured tier handling.
+6. Build comparison layout or matrix placeholder if enabled.
+7. Build services-page testimonial section with larger set than Home.
+8. Build CTA strip at bottom.
+
+TESTS
+
+SERVICES PAGE TESTS
+- exact price mode shows exact price
+- starting-at mode prefixes properly
+- quote-required mode suppresses direct price and routes to quote
+- contact-sales mode routes to contact
+- featured tier styling does not distort grid
+- 3-tier layout works cleanly
+- 7-tier layout works cleanly
+- testimonial association by service tier works if configured
+
+MANUAL TESTS
+- inspect service tiers on desktop and mobile
+- verify no card height catastrophes on uneven content
+- verify CTAs are correct for each tier
+- verify comparison section behaves when enabled/disabled
+
+EXIT CRITERIA
+- Services page is modular and robust
+- tier count flexibility is proven
+- price/CTA logic is proven
+- page is credible enough for real deployment
+
+FAILURE MODES
+- tier cards only designed for exactly 3 services
+- pricing logic scattered in page markup
+- CTA routing coupled to visual layout
+- service content too hardcoded
+
+======================================================================
+8. SPRINT 6 - ABOUT / CONTACT / LEGAL / HIDDEN PLACEHOLDER PAGES
+======================================================================
+
+SPRINT OBJECTIVE
+
+Complete the remaining non-quote public pages and hidden placeholder
+pages.
+
+WHY THIS SPRINT EXISTS
+
+This finishes the structural site footprint before advanced logic work.
+
+SCOPE
+
+- About page
+- Contact page shell
+- Privacy page
+- Terms page
+- Articles placeholder page
+- Misc placeholder page
+- 404 page
+
+IMPLEMENTATION TASKS
+
+1. Build About page sections:
+   - company intro
+   - operating philosophy
+   - engagement model
+   - founder/team support
+   - credibility block optional
+2. Build Contact page shell:
+   - intro
+   - form region placeholder
+   - alternate contact block
+   - optional scheduler CTA block
+3. Build Privacy page layout.
+4. Build Terms page layout.
+5. Build Articles / White Papers placeholder page:
+   - hidden by default
+   - article list cards from config
+6. Build Misc placeholder page:
+   - hidden by default
+   - generic flexible content shell
+7. Build 404 page consistent with site branding.
+
+TESTS
+
+PAGE TESTS
+- About page reads cleanly at short and long content lengths
+- Contact layout handles form and sidebar/contact block cleanly
+- Privacy and Terms pages support long-form text legibly
+- Articles page renders hidden by default, visible when enabled
+- Misc page remains hidden by default
+- 404 page loads with working route fallback on GitHub Pages strategy
+
+MANUAL TESTS
+- verify footer/legal pages are accessible
+- verify hidden pages can be enabled without new layout work
+- inspect long legal text flow
+
+EXIT CRITERIA
+- full page footprint exists
+- hidden future-expansion architecture exists
+- remaining public pages are professionally usable
+
+FAILURE MODES
+- hidden pages not actually wired
+- contact page built as a dead shell
+- legal pages treated as afterthoughts
+- 404 omitted
+
+======================================================================
+9. SPRINT 7 - QUOTE ENGINE CORE LOGIC
+======================================================================
+
+SPRINT OBJECTIVE
+
+Build the core quote engine independent of final UI polish.
+
+WHY THIS SPRINT EXISTS
+
+The quote engine is the most failure-prone logic area. It should be
+stabilized as logic first, UI second.
+
+SCOPE
+
+- quote state object
+- question schema
+- branching logic
+- downstream answer invalidation
+- estimate calculation
+- service recommendation
+- scope breakdown
+- assumptions
+- next-step text generation
+
+IMPLEMENTATION TASKS
+
+1. Define final question schema in quote-config.js.
+2. Create question types:
+   - single select
+   - radio
+   - checkbox multi-select
+   - dropdown
+   - number
+   - short text
+   - yes/no
+   - textarea optional
+3. Build quote state model.
+4. Build branching resolver:
+   - static next id
+   - conditional next id
+   - branch termination
+5. Build answer invalidation logic:
+   - when path changes, downstream invalid answers clear
+6. Build estimate rules engine.
+7. Build recommended tier resolver.
+8. Build scope/breakdown builder.
+9. Build assumptions text assembly.
+10. Build next-step text output.
+
+TESTS
+
+QUOTE ENGINE LOGIC TESTS
+- each question type stores answer correctly
+- conditional next question routing works
+- skipped questions are not incorrectly counted
+- changing an upstream answer clears invalid downstream answers
+- recommended tier changes when inputs change
+- estimate range recalculates correctly
+- breakdown text updates correctly
+- missing answers do not produce false results
+- engine handles minimum and maximum branch complexity designed for V1
+
+MANUAL TESTS
+- run through multiple branch scenarios
+- deliberately change answers late in flow
+- verify result reflects final path only
+- verify edge cases with sparse vs rich answers
+
+EXIT CRITERIA
+- quote logic is correct and deterministic
+- result object is trustworthy
+- no UI dependency is required to verify engine correctness
+
+FAILURE MODES
+- mixing UI code with business logic
+- failing to clear invalid downstream answers
+- estimate logic too brittle
+- no deterministic branching contract
+
+======================================================================
+10. SPRINT 8 - QUOTE WIZARD UI / LEAD GATE / RESULT SCREEN
+======================================================================
+
+SPRINT OBJECTIVE
+
+Build the full slideshow-style quote user experience on top of the
+stable engine.
+
+WHY THIS SPRINT EXISTS
+
+The UI layer must remain thin and disciplined. This sprint turns the
+logic engine into a usable front-end tool.
+
+SCOPE
+
+- quote intro screen
+- one-question-per-screen flow
+- progress indicator
+- next/back controls
+- validation
+- lead gate
+- result screen
+- downloadable summary UI
+
+IMPLEMENTATION TASKS
+
+1. Build intro/start screen.
+2. Build one-question-per-screen UI shell.
+3. Render fields based on question type.
+4. Implement next/back flow.
+5. Implement progress indicator.
+6. Implement per-question validation.
+7. Build lead gate form requiring:
+   - name OR company
+   - email OR phone
+8. Add optional opt-in checkbox.
+9. Build result screen:
+   - estimated range
+   - recommended tier
+   - scope breakdown
+   - assumptions
+   - next steps
+10. Build summary download action.
+11. Add reset/start-over action.
+
+TESTS
+
+QUOTE UI TESTS
+- next button does not advance on invalid question state
+- back button preserves valid prior state
+- progress indicator updates correctly
+- lead gate blocks result if required contact data missing
+- name-only and company-only cases both work
+- email-only and phone-only cases both work
+- result screen renders complete output
+- reset clears state correctly
+- summary download/print mode works
+
+MANUAL TESTS
+- run full flow on desktop
+- run full flow on mobile
+- test touch interaction on buttons and fields
+- verify result feels orderly, not cluttered
+
+EXIT CRITERIA
+- quote wizard is usable end to end
+- lead gate is enforced correctly
+- results are professional and actionable
+- downloadable summary exists and works
+
+FAILURE MODES
+- multi-question clutter creeping in
+- validation messages unclear
+- lead gate logic wrong
+- result screen too vague or too overloaded
+- download path relying on heavy PDF dependencies
+
+======================================================================
+11. SPRINT 9 - FORMSPREE INTEGRATION / CONTACT + QUOTE LEAD PIPELINE
+======================================================================
+
+SPRINT OBJECTIVE
+
+Wire real form submission into the site for private lead capture.
+
+WHY THIS SPRINT EXISTS
+
+Up to this point, forms can be local. This sprint makes them operational
+for real business use.
+
+SCOPE
+
+- contact form submission
+- quote lead submission
+- success/error handling
+- spam mitigation
+- field mapping
+- single admin destination support
+
+IMPLEMENTATION TASKS
+
+1. Integrate Formspree endpoint config fields.
+2. Wire Contact form submission.
+3. Wire Quote lead gate submission before result reveal.
+4. Add success states and failure states.
+5. Add honeypot field or equivalent light anti-spam measure if used.
+6. Ensure opt-in status is captured in quote lead submission.
+7. Ensure quote result does not silently bypass failed submission.
+8. Document setup in FORMSPREE_SETUP.txt.
+
+TESTS
+
+FORM INTEGRATION TESTS
+- contact submission succeeds with valid inputs
+- contact submission fails visibly with invalid inputs
+- quote lead submission succeeds with valid inputs
+- quote lead submission failure blocks result and shows retry path
+- opt-in flag submits correctly
+- honeypot does not interfere with normal submission
+- only one admin destination is configured
+- field names in Formspree payload are human-readable
+
+MANUAL TESTS
+- submit live test message through Contact page
+- submit live test quote lead
+- verify email delivery / inbox capture
+- verify bad network/error state experience
+
+EXIT CRITERIA
+- forms are operational and private
+- users get clear success/failure feedback
+- quote funnel captures leads before result reveal
+
+FAILURE MODES
+- form submit succeeds but UX gives no confirmation
+- quote result reveals before lead submission
+- Formspree mapping unreadable
+- no error handling for network failure
+
+======================================================================
+12. SPRINT 10 - GOOGLE CALENDAR SCHEDULER INTEGRATION
+======================================================================
+
+SPRINT OBJECTIVE
+
+Integrate booking at the final quote step and optionally on Contact page.
+
+WHY THIS SPRINT EXISTS
+
+This turns the site from passive brochure into a live sales handoff
+system.
+
+SCOPE
+
+- inline embed mode
+- external link fallback mode
+- scheduler config
+- quote result placement
+- contact-page scheduler CTA optional
+
+IMPLEMENTATION TASKS
+
+1. Define scheduler-config.js fields.
+2. Implement scheduler renderer:
+   - inline embed if configured
+   - fallback link otherwise
+3. Place scheduler section on quote result screen.
+4. Add optional scheduler CTA on Contact page.
+5. Ensure scheduler label and explanatory copy are configurable.
+6. Document setup in GOOGLE_CALENDAR_SETUP.txt.
+
+TESTS
+
+SCHEDULER TESTS
+- inline embed renders when configured
+- fallback link appears when embed unavailable
+- fallback opens in new tab when specified
+- quote result still usable if scheduler disabled
+- contact page scheduler CTA behaves correctly when enabled/disabled
+
+MANUAL TESTS
+- verify embedded schedule loads correctly
+- verify new-tab flow opens correct appointment schedule URL
+- verify scheduler section does not break mobile layout
+
+EXIT CRITERIA
+- user can go from estimate to meeting booking cleanly
+- scheduler behavior is config-driven
+- failure/fallback mode is graceful
+
+FAILURE MODES
+- scheduler hardcoded into page
+- no fallback path
+- iframe/embed breaking layout
+- quote page dependent on embed success
+
+======================================================================
+13. SPRINT 11 - SEO / METADATA / FAVICON / SOCIAL PREVIEW / 404 HARDENING
+======================================================================
+
+SPRINT OBJECTIVE
+
+Finish technical polish required for serious public deployment.
+
+WHY THIS SPRINT EXISTS
+
+A site that “looks done” but lacks metadata, favicon, and routing polish
+is not enterprise-grade bedrock.
+
+SCOPE
+
+- favicon package
+- apple touch icon
+- page titles
+- meta descriptions
+- OG tags
+- Twitter/X tags
+- canonical URLs
+- organization metadata
+- 404 hardening
+
+IMPLEMENTATION TASKS
+
+1. Implement seo-config.js.
+2. Add default metadata to all public pages.
+3. Add per-page override support.
+4. Wire favicon and touch icon assets.
+5. Add OG image defaults.
+6. Add canonical URL support.
+7. Add organization/site structured data if kept clean.
+8. Harden 404 page and verify deployment path behavior.
+9. Document metadata editing in EDITING_GUIDE or STYLE_GUIDE.
+
+TESTS
+
+SEO TESTS
+- every public page has title and meta description
+- OG tags present
+- canonical tags point correctly
+- favicon renders in browser tab
+- social preview image references valid asset path
+- 404 page displays correctly
+- hidden placeholder pages do not unintentionally appear in nav but still
+  have valid metadata if accessed
+
+MANUAL TESTS
+- inspect page source on all public pages
+- validate favicon load
+- validate social preview asset presence
+- manually navigate to invalid route and confirm branded 404
+
+EXIT CRITERIA
+- public deployment has a complete metadata baseline
+- branding assets are complete
+- site looks professional in browser and in link previews
+
+FAILURE MODES
+- metadata only set on Home page
+- broken OG asset paths
+- no page-level overrides
+- 404 page forgotten until deployment
+
+======================================================================
+14. SPRINT 12 - ACCESSIBILITY / RESPONSIVENESS / PERFORMANCE HARDENING
+======================================================================
+
+SPRINT OBJECTIVE
+
+Perform the serious engineering hardening pass: keyboard usability,
+contrast, viewport integrity, and asset discipline.
+
+WHY THIS SPRINT EXISTS
+
+This is where a project becomes bulletproof instead of merely complete.
+
+SCOPE
+
+- keyboard navigation
+- form accessibility
+- heading structure review
+- contrast verification
+- viewport tuning
+- image optimization
+- JS/CSS cleanup
+- print review
+
+IMPLEMENTATION TASKS
+
+1. Audit heading hierarchy across pages.
+2. Audit label/input relationships.
+3. Audit keyboard navigation:
+   - nav
+   - mobile nav
+   - forms
+   - quote wizard
+   - result actions
+4. Audit visible focus states.
+5. Audit color contrast.
+6. Audit spacing and legibility at:
+   - wide desktop
+   - laptop
+   - tablet
+   - mobile
+7. Optimize branding and testimonial images.
+8. Remove dead CSS and JS.
+9. Re-test print stylesheet for quote summary.
+10. Fix overflow and stacking defects.
+
+TESTS
+
+ACCESSIBILITY TESTS
+- all interactive elements reachable by keyboard
+- focus state always visible
+- form fields have labels
+- validation errors visible and understandable
+- headings are hierarchical and sane
+- quote wizard usable without mouse
+
+RESPONSIVENESS TESTS
+- no horizontal overflow at common widths
+- nav remains usable on mobile
+- service cards stack cleanly
+- quote wizard remains readable on mobile
+- embedded scheduler does not break page flow
+
+PERFORMANCE TESTS
+- no obviously oversized images
+- no unused giant libraries
+- no blocking script errors
+- no console warnings due to broken assets
+
+MANUAL TESTS
+- tab through the whole site
+- use site on phone-sized viewport
+- inspect print preview
+- inspect network requests for missing assets
+
+EXIT CRITERIA
+- site is robust, not just attractive
+- accessibility and mobile quality meet baseline
+- performance remains consistent with static-site expectations
+
+FAILURE MODES
+- “desktop-first” used as excuse for broken mobile
+- ignoring keyboard paths
+- shipping large unoptimized images
+- late-discovered overflow issues
+
+======================================================================
+15. SPRINT 13 - DOCUMENTATION / TEMPLATE HANDOFF / FINAL QA
+======================================================================
+
+SPRINT OBJECTIVE
+
+Complete the documentation, prove repeatability, and validate that the
+project is truly a reusable template rather than a single configured
+instance.
+
+WHY THIS SPRINT EXISTS
+
+A template is only real if another engineer can clone it and stand up a
+new business site quickly without reverse engineering your intentions.
+
+SCOPE
+
+- docs completion
+- config editing guide
+- deployment guide
+- template reuse dry run
+- final QA checklist
+- changelog baseline
+
+IMPLEMENTATION TASKS
+
+1. Fill QUICKSTART.txt.
+2. Fill EDITING_GUIDE.txt.
+3. Fill DEPLOY_GITHUB_PAGES.txt.
+4. Fill FORMSPREE_SETUP.txt.
+5. Fill GOOGLE_CALENDAR_SETUP.txt.
+6. Fill SITE_ARCHITECTURE.txt.
+7. Fill STYLE_GUIDE.txt.
+8. Fill CONTENT_MODEL.txt.
+9. Fill QUOTE_ENGINE_RULES.txt.
+10. Fill CHANGELOG.txt.
+11. Perform “new business dry run”:
+   - duplicate template
+   - swap branding
+   - change services
+   - change testimonials
+   - change nav toggles
+   - change quote questions
+   - verify site still stands cleanly
+12. Fix all friction discovered during dry run.
+
+TESTS
+
+TEMPLATE REUSE TESTS
+- new business branding swap works
+- service count swap works
+- CTA count swap works
+- hidden pages can be enabled
+- quote flow can be edited without breaking core shell
+- new admin email/Formspree endpoint can be configured cleanly
+- deployment steps are repeatable from docs alone
+
+DOCUMENTATION TESTS
+- a second person can follow docs and get site running
+- no doc assumes hidden tribal knowledge
+- safe edit zones are clearly marked
+
+FINAL QA TESTS
+- all public pages load
+- no console errors
+- all links work
+- forms work
+- scheduler works
+- quote summary works
+- metadata exists
+- mobile works
+- print works
+
+EXIT CRITERIA
+- project is cloneable and reusable
+- docs are operational
+- no unexplained magic remains
+- template base is truly production-grade
+
+FAILURE MODES
+- docs written as afterthought
+- template only works for the original sample content
+- quote logic not explained
+- deployment guide incomplete
+- hidden assumptions around pathing or config
+
+======================================================================
+16. OPTIONAL POST-BASE SPRINTS
+======================================================================
+
+These are not part of the core bedrock but are valid later.
+
+OPTIONAL SPRINT A - FAQ / RESOURCES EXPANSION
+- add FAQ system
+- activate Articles page
+- create article detail shell approach
+
+OPTIONAL SPRINT B - ANALYTICS
+- add lightweight analytics
+- event tracking for quote starts / completions / bookings
+
+OPTIONAL SPRINT C - EMAIL PLATFORM EXPORT OR SYNC
+- add cleaner marketing-list workflow
+- export convention or third-party sync
+
+OPTIONAL SPRINT D - ADVANCED PDF GENERATION
+- more polished downloadable quote PDF path
+- only if truly needed
+
+======================================================================
+17. MINIMUM ACCEPTANCE GATE FOR THE WHOLE PROGRAM
+======================================================================
+
+The project is only considered complete when all of the following are
+true:
+
+1. Site can be hosted on GitHub Pages without backend runtime.
+2. Contact form works through Formspree.
+3. Quote lead gate works through Formspree.
+4. Quote wizard supports one-question-per-screen branching flow.
+5. Services page supports 3 to 7 tiers.
+6. Hero supports 1 to 3 CTAs.
+7. Testimonials support rich and simple modes.
+8. Hidden Articles and Misc pages exist.
+9. Scheduler works inline or by fallback link.
+10. Downloadable quote summary works.
+11. Metadata package exists.
+12. 404 page exists.
+13. Mobile behavior is sound.
+14. Keyboard navigation is sound.
+15. Docs are good enough for reuse by another engineer.
+
+======================================================================
+18. RECOMMENDED DELIVERY ORDER SUMMARY
+======================================================================
+
+Sprint 0  - Project foundation / repo bootstrap
+Sprint 1  - Core design system / CSS bedrock
+Sprint 2  - Global shell / header / footer / nav
+Sprint 3  - Config system / data contracts / content renderers
+Sprint 4  - Home page
+Sprint 5  - Services page
+Sprint 6  - About / Contact / Legal / Hidden placeholders
+Sprint 7  - Quote engine core logic
+Sprint 8  - Quote wizard UI / lead gate / result screen
+Sprint 9  - Formspree integration
+Sprint 10 - Google Calendar scheduler integration
+Sprint 11 - SEO / metadata / favicon / 404 hardening
+Sprint 12 - Accessibility / responsiveness / performance hardening
+Sprint 13 - Documentation / template handoff / final QA
+
+This order is deliberate and should not be casually rearranged.
+
+======================================================================
+19. FINAL ENGINEERING JUDGMENT
+======================================================================
+
+The mistake junior teams make is building pages first, logic second, and
+reuse never. That always produces a fragile website.
+
+The correct senior-engineer approach is:
+
+- build the bedrock
+- lock the contracts
+- prove the shell
+- prove the config model
+- prove the service model
+- isolate the quote engine
+- integrate external services only after internal logic is stable
+- harden accessibility, metadata, performance, and documentation last
+
+That sequence produces a reusable asset, not a one-time artifact.
+
+This sprint plan is optimized for that outcome.

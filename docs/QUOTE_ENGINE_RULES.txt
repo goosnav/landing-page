@@ -1,0 +1,101 @@
+ENTERPRISE STATIC SERVICE SITE TEMPLATE
+QUOTE ENGINE RULES
+
+CORE PRINCIPLES
+
+1. One question per screen.
+2. Branching belongs in quote-config.js.
+3. Business logic belongs in quote-engine.js.
+4. UI flow belongs in quote-ui.js.
+5. Quote result is blocked until the lead gate submits successfully.
+
+STATE MODEL
+
+The quote state holds:
+
+- currentQuestionId
+- answers
+- visitedQuestions
+- recommendedTier
+- estimateRange
+- breakdown
+- assumptions
+- leadGateData
+- optInStatus
+- resultTimestamp
+
+BRANCHING MODEL
+
+Each question has nextQuestionRule.
+
+Supported routing patterns:
+
+- defaultNextId
+- conditional nextId rules using:
+  equals
+  in
+  gte
+  lte
+  contains
+
+DOWNSTREAM INVALIDATION
+
+When an upstream answer changes, quote-engine.js recalculates the
+reachable question path and prunes answers that no longer belong to the
+active branch.
+
+Example:
+
+1. timeline = immediate
+2. targetStartDate becomes reachable
+3. user later changes timeline = later
+4. targetStartDate is automatically removed from state
+
+RECOMMENDATION MODEL
+
+The sample implementation resolves the recommended service tier from:
+
+- delivery model
+- engagement goal
+- team size
+- active client count
+- urgency
+- compliance requirement
+- primary constraint
+
+ESTIMATE MODEL
+
+The final range is:
+
+base tier range
++ team size modifier
++ active client count modifier
++ urgency modifier
++ compliance modifier
++ compliance focus modifiers
++ primary constraint modifier
+
+RESULT MODEL
+
+Every successful result includes:
+
+- recommended engagement label
+- estimated range
+- scope summary
+- detailed scope breakdown
+- assumptions
+- next steps
+- selected answer summary
+- non-binding disclaimer
+
+LEAD GATE RULE
+
+The result is gated behind:
+
+- name OR company
+- email OR phone
+
+DOWNLOAD MODEL
+
+The downloadable summary is generated as a standalone HTML file and can
+also be printed to PDF without a heavy PDF dependency.

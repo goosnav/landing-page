@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 140" role="img" aria-labelledby="title desc">
+  <title id="title">Northstar Systems Advisory logo</title>
+  <desc id="desc">Wordmark with square star logo mark and company name.</desc>
+  <rect width="520" height="140" fill="#08090b"/>
+  <g transform="translate(16 22)">
+    <rect width="96" height="96" fill="none" stroke="#f3f4f6" stroke-width="4"/>
+    <path d="M48 12 56 40 84 48 56 56 48 84 40 56 12 48 40 40Z" fill="#f3f4f6"/>
+    <path d="M48 12 56 40 84 48" fill="none" stroke="#d83b3b" stroke-width="4"/>
+    <path d="M48 12 48 84" fill="none" stroke="#2c6de4" stroke-width="4"/>
+  </g>
+  <g fill="#f3f4f6" font-family="Helvetica, Arial, sans-serif">
+    <text x="138" y="58" font-size="34" font-weight="700" letter-spacing="1.2">NORTHSTAR</text>
+    <text x="138" y="94" font-size="24" letter-spacing="5">SYSTEMS ADVISORY</text>
+  </g>
+</svg>

@@ -1,0 +1,60 @@
+ENTERPRISE STATIC SERVICE SITE TEMPLATE
+DEPLOY TO GITHUB PAGES
+
+WHY A BUILD STEP EXISTS
+
+The source-of-truth repository structure keeps page shells in site/ and
+shared assets in assets/. GitHub Pages expects the published index.html
+and sibling pages at the artifact root. To preserve the mandated source
+layout without introducing a framework or bundler, deployment uses one
+copy-only build step:
+
+node tools/build-site.mjs
+
+This step does not transpile, bundle, or alter runtime code. It only:
+
+1. copies assets/ into dist/assets/
+2. copies site/*.html into dist/
+3. rewrites source-relative asset paths from ../assets/ to assets/
+4. writes dist/.nojekyll
+
+LOCAL DEPLOYMENT CHECK
+
+1. node tools/build-site.mjs
+2. node tools/test-site.mjs
+3. python3 -m http.server --directory dist 8080
+4. confirm the built site works from dist/
+
+GITHUB PAGES RECOMMENDED FLOW
+
+1. Push the repository to GitHub.
+2. Use the included GitHub Actions workflow to build and deploy dist/.
+3. In repository settings, set Pages to use GitHub Actions.
+4. After the first deployment, verify:
+   - index page loads
+   - 404 page loads
+   - favicon renders
+   - all public pages are reachable
+   - forms and scheduler paths use the correct production config
+
+CUSTOM DOMAIN
+
+If you attach a custom domain:
+
+1. update assets/js/config/seo-config.js siteUrl
+2. redeploy
+3. verify canonical URLs and OG image URLs
+4. add CNAME handling if your deployment flow requires it
+
+POST-DEPLOY CHECKLIST
+
+- Home loads
+- Services loads
+- Quote loads
+- About loads
+- Contact loads
+- Privacy and Terms load
+- Hidden placeholder pages stay hidden unless intentionally enabled
+- Formspree submissions succeed
+- Scheduler opens the correct appointment schedule
+- Metadata and favicon assets resolve correctly
