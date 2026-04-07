@@ -258,6 +258,23 @@ function runContractTests() {
   assert(testimonials.some((item) => item.simplifiedMode === true), "At least one testimonial must exercise simplified mode.");
   assert(testimonials.some((item) => item.simplifiedMode === false), "At least one testimonial must exercise rich mode.");
 
+  const homePageConfig = template.config.site.homePage || {};
+  assert(homePageConfig.differentiatorsHeader && homePageConfig.differentiatorsHeader.title, "site-config homePage must define differentiatorsHeader so renderers stay business-neutral.");
+  assert(homePageConfig.processHeader && homePageConfig.processHeader.title, "site-config homePage must define processHeader so renderers stay business-neutral.");
+  assert(homePageConfig.servicesHeader && homePageConfig.servicesHeader.title, "site-config homePage must define servicesHeader so renderers stay business-neutral.");
+  assert(homePageConfig.testimonialsHeader && homePageConfig.testimonialsHeader.title, "site-config homePage must define testimonialsHeader so renderers stay business-neutral.");
+  assert(template.config.services.testimonialsHeader && template.config.services.testimonialsHeader.title, "services-config must define testimonialsHeader so the services page stays business-neutral.");
+  assert(template.config.services.comparisonMatrix && template.config.services.comparisonMatrix.header && template.config.services.comparisonMatrix.header.title, "services-config comparisonMatrix must define a header so renderers stay business-neutral.");
+  assert(template.config.site.aboutPage && template.config.site.aboutPage.engagementModelHeading, "site-config aboutPage must define engagementModelHeading so the renderer stays business-neutral.");
+  assert(template.config.site.aboutPage && template.config.site.aboutPage.trustMarkersHeading, "site-config aboutPage must define trustMarkersHeading so the renderer stays business-neutral.");
+  const notFoundConfig = template.config.site.notFoundPage || null;
+  assert(notFoundConfig && notFoundConfig.title && notFoundConfig.primaryCta, "site-config must define notFoundPage with a title and primaryCta so the 404 renderer stays business-neutral.");
+  const formLabels = template.config.contact.formLabels || null;
+  assert(formLabels && formLabels.sectionHeading && formLabels.submitLabel, "contact-config must define formLabels with sectionHeading and submitLabel so the renderer stays business-neutral.");
+  assert(template.config.misc && template.config.misc.eyebrow, "misc-config must define an eyebrow so the renderer stays business-neutral.");
+  const quoteExperience = template.config.quote.experience || {};
+  assert(quoteExperience.pageIntro && quoteExperience.pageIntro.title, "quote-config experience must define pageIntro so app.js does not hardcode the quote intro copy.");
+
   const state = quoteEngine.createInitialState();
   quoteEngine.setAnswer(state, "engagementGoal", "scale");
   quoteEngine.setAnswer(state, "teamSize", "team_200_plus");

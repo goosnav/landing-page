@@ -9,6 +9,12 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
 
 window.SiteTemplate.config.quote = {
   experience: {
+    pageIntro: {
+      eyebrow: "Quote",
+      title: "A controlled estimate experience for serious buyers.",
+      body:
+        "The quote flow uses one question per screen, a hard lead gate before result reveal, and scheduler handoff once the estimate is captured."
+    },
     title: "Guided Estimate",
     intro:
       "Answer a short sequence of questions to receive a directional range, recommended engagement tier, and the most sensible next step.",

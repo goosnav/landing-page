@@ -28,6 +28,15 @@ window.SiteTemplate.config.contact = {
     body:
       "Use the contact form for general inquiries, partnership requests, or scoped follow-up after reviewing services."
   },
+  formLabels: {
+    sectionHeading: "Send a message",
+    nameLabel: "Name",
+    emailLabel: "Email",
+    phoneLabel: "Phone",
+    companyLabel: "Company",
+    messageLabel: "Message",
+    submitLabel: "Send Message"
+  },
   alternateContactHeading: "Direct contact",
   alternateContactBody:
     "For procurement, executive introductions, or urgent delivery discussions, use the primary email or phone listed below.",

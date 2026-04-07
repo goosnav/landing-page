@@ -191,8 +191,28 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
       "</div>";
   }
 
+  function renderSectionHeader(headerConfig, defaults) {
+    var resolved = headerConfig || {};
+    var eyebrow = resolved.eyebrow || (defaults && defaults.eyebrow) || "";
+    var title = resolved.title || (defaults && defaults.title) || "";
+    var body = resolved.body || (defaults && defaults.body) || "";
+
+    if (!eyebrow && !title && !body) {
+      return "";
+    }
+
+    return (
+      '<div class="section-header">' +
+      (eyebrow ? '<p class="eyebrow">' + escapeHtml(eyebrow) + "</p>" : "") +
+      (title ? '<h2>' + escapeHtml(title) + "</h2>" : "") +
+      (body ? '<p class="section-copy">' + escapeHtml(body) + "</p>" : "") +
+      "</div>"
+    );
+  }
+
   function renderDifferentiators(container) {
-    var items = (siteConfig.homePage && siteConfig.homePage.differentiators) || [];
+    var homePage = siteConfig.homePage || {};
+    var items = homePage.differentiators || [];
 
     if (!container) {
       return;
@@ -200,11 +220,7 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
 
     container.innerHTML =
       '<div class="container">' +
-      '<div class="section-header">' +
-      '<p class="eyebrow">Why Northstar</p>' +
-      '<h2>Built for sober operating decisions.</h2>' +
-      '<p class="section-copy">The template uses the same philosophy as the advisory work: minimal surface area, explicit structure, and strong operational signal.</p>' +
-      '</div>' +
+      renderSectionHeader(homePage.differentiatorsHeader, { eyebrow: "Differentiators" }) +
       '<div class="card-grid">' +
       items.map(function mapItem(item) {
         return (
@@ -219,7 +235,8 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
   }
 
   function renderProcess(container) {
-    var steps = (siteConfig.homePage && siteConfig.homePage.processSteps) || [];
+    var homePage = siteConfig.homePage || {};
+    var steps = homePage.processSteps || [];
 
     if (!container) {
       return;
@@ -227,11 +244,7 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
 
     container.innerHTML =
       '<div class="container">' +
-      '<div class="section-header">' +
-      '<p class="eyebrow">Process</p>' +
-      '<h2>A direct operating sequence.</h2>' +
-      '<p class="section-copy">The process block is config-driven so businesses can replace the sample steps without changing the page shell.</p>' +
-      '</div>' +
+      renderSectionHeader(homePage.processHeader, { eyebrow: "Process" }) +
       '<div class="grid-4">' +
       steps.map(function mapStep(step, index) {
         return (
@@ -304,13 +317,11 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
       return;
     }
 
+    var homePage = siteConfig.homePage || {};
+
     container.innerHTML =
       '<div class="container">' +
-      '<div class="section-header">' +
-      '<p class="eyebrow">Services</p>' +
-      '<h2>Three default tiers, built to scale to seven.</h2>' +
-      '<p class="section-copy">The same renderer supports compact homepage previews and the full services page without scattering business content across HTML files.</p>' +
-      '</div>' +
+      renderSectionHeader(homePage.servicesHeader, { eyebrow: "Services" }) +
       '<div class="card-grid">' +
       getVisibleServices().map(function mapService(service) {
         return createServiceCardMarkup(service, true);
@@ -349,10 +360,7 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
 
     container.innerHTML =
       '<div class="container stack-md">' +
-      '<div class="section-header">' +
-      '<p class="eyebrow">Comparison</p>' +
-      '<h2>Service structure at a glance.</h2>' +
-      "</div>" +
+      renderSectionHeader(serviceConfig.comparisonMatrix.header, { eyebrow: "Comparison" }) +
       '<div class="comparison-table-wrap">' +
       "<table>" +
       "<thead><tr><th>Capability</th>" +
@@ -414,7 +422,7 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
     );
   }
 
-  function renderTestimonials(container, filterKey, headingText, introText) {
+  function renderTestimonials(container, filterKey, headerConfig) {
     if (!container) {
       return;
     }
@@ -423,11 +431,7 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
 
     container.innerHTML =
       '<div class="container">' +
-      '<div class="section-header">' +
-      '<p class="eyebrow">Testimonials</p>' +
-      '<h2>' + escapeHtml(headingText) + "</h2>" +
-      '<p class="section-copy">' + escapeHtml(introText) + "</p>" +
-      "</div>" +
+      renderSectionHeader(headerConfig, { eyebrow: "Testimonials" }) +
       '<div class="card-grid">' +
       items.map(createTestimonialMarkup).join("") +
       "</div>" +
@@ -456,10 +460,12 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
       });
     }
 
+    var eyebrow = ctaConfig.eyebrow || "Next Step";
+
     container.innerHTML =
       '<div class="container">' +
       '<div class="card">' +
-      '<p class="eyebrow">Next Step</p>' +
+      '<p class="eyebrow">' + escapeHtml(eyebrow) + "</p>" +
       '<h2>' + escapeHtml(ctaConfig.title) + "</h2>" +
       '<p class="section-copy">' + escapeHtml(ctaConfig.body) + "</p>" +
       renderButtonRow(ctas) +
@@ -493,7 +499,7 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
       "</section>" +
       '<section class="split-layout">' +
       '<article class="info-panel">' +
-      '<h2 class="info-panel__heading">Engagement model</h2>' +
+      '<h2 class="info-panel__heading">' + escapeHtml(about.engagementModelHeading || "Engagement model") + "</h2>" +
       '<ul class="info-list">' +
       about.engagementModel.map(function mapItem(item) {
         return "<li>" + escapeHtml(item) + "</li>";
@@ -511,7 +517,7 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
       "</aside>" +
       "</section>" +
       '<section class="card">' +
-      '<h2>Trust markers</h2>' +
+      '<h2>' + escapeHtml(about.trustMarkersHeading || "Trust markers") + "</h2>" +
       '<ul class="info-list">' +
       about.trustMarkers.map(function mapItem(item) {
         return "<li>" + escapeHtml(item) + "</li>";
@@ -548,6 +554,14 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
 
   function renderContactPage(container) {
     var contactConfig = template.config.contact || {};
+    var formLabels = contactConfig.formLabels || {};
+    var sectionHeading = formLabels.sectionHeading || "Send a message";
+    var nameLabel = formLabels.nameLabel || "Name";
+    var emailLabel = formLabels.emailLabel || "Email";
+    var phoneLabel = formLabels.phoneLabel || "Phone";
+    var companyLabel = formLabels.companyLabel || "Company";
+    var messageLabel = formLabels.messageLabel || "Message";
+    var submitLabel = formLabels.submitLabel || "Send Message";
     var brandAddress = [
       siteConfig.addressLine1,
       siteConfig.addressLine2,
@@ -568,21 +582,21 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
       "</div>" +
       '<div class="contact-grid">' +
       '<section class="card">' +
-      '<h2>Send a message</h2>' +
+      '<h2>' + escapeHtml(sectionHeading) + "</h2>" +
       '<form class="form-shell" data-contact-form novalidate>' +
       '<div class="form-grid">' +
-      '<div class="form-field"><label class="form-label" for="contact-name">Name</label><input class="form-input" id="contact-name" name="name" autocomplete="name" required></div>' +
-      '<div class="form-field"><label class="form-label" for="contact-email">Email</label><input class="form-input" id="contact-email" name="email" type="email" autocomplete="email" required></div>' +
-      '<div class="form-field"><label class="form-label" for="contact-phone">Phone</label><input class="form-input" id="contact-phone" name="phone" type="tel" autocomplete="tel"></div>' +
-      '<div class="form-field"><label class="form-label" for="contact-company">Company</label><input class="form-input" id="contact-company" name="company" autocomplete="organization"></div>' +
-      '<div class="form-field form-field--full"><label class="form-label" for="contact-message">Message</label><textarea class="form-textarea" id="contact-message" name="message" required></textarea></div>' +
+      '<div class="form-field"><label class="form-label" for="contact-name">' + escapeHtml(nameLabel) + '</label><input class="form-input" id="contact-name" name="name" autocomplete="name" required></div>' +
+      '<div class="form-field"><label class="form-label" for="contact-email">' + escapeHtml(emailLabel) + '</label><input class="form-input" id="contact-email" name="email" type="email" autocomplete="email" required></div>' +
+      '<div class="form-field"><label class="form-label" for="contact-phone">' + escapeHtml(phoneLabel) + '</label><input class="form-input" id="contact-phone" name="phone" type="tel" autocomplete="tel"></div>' +
+      '<div class="form-field"><label class="form-label" for="contact-company">' + escapeHtml(companyLabel) + '</label><input class="form-input" id="contact-company" name="company" autocomplete="organization"></div>' +
+      '<div class="form-field form-field--full"><label class="form-label" for="contact-message">' + escapeHtml(messageLabel) + '</label><textarea class="form-textarea" id="contact-message" name="message" required></textarea></div>' +
       "</div>" +
       (contactConfig.enableSpamTrap
         ? '<div class="form-field visually-hidden" aria-hidden="true"><label for="contact-website">Website</label><input id="contact-website" name="_gotcha" tabindex="-1" autocomplete="off"></div>'
         : "") +
       '<p class="form-note">' + escapeHtml(contactConfig.privacyNoticeText) + "</p>" +
       '<div class="form-status" data-form-status aria-live="polite"></div>' +
-      '<div class="button-row"><button class="button button--primary" type="submit">Send Message</button></div>' +
+      '<div class="button-row"><button class="button button--primary" type="submit">' + escapeHtml(submitLabel) + "</button></div>" +
       "</form>" +
       "</section>" +
       '<aside class="info-panel" data-contact-sidebar>' +
@@ -641,7 +655,7 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
     container.innerHTML =
       '<div class="container stack-lg">' +
       '<div class="page-intro">' +
-      '<p class="eyebrow">Hidden placeholder</p>' +
+      '<p class="eyebrow">' + escapeHtml(miscConfig.eyebrow || "Hidden placeholder") + "</p>" +
       '<h1>' + escapeHtml(miscConfig.title) + "</h1>" +
       '<p class="page-copy">' + escapeHtml(miscConfig.body) + "</p>" +
       "</div>" +
@@ -667,17 +681,39 @@ window.SiteTemplate.config = window.SiteTemplate.config || {};
       return;
     }
 
+    var notFoundConfig = siteConfig.notFoundPage || {};
+    var eyebrow = notFoundConfig.eyebrow || "404";
+    var title = notFoundConfig.title || "Page not found.";
+    var body =
+      notFoundConfig.body ||
+      "The requested page does not exist or the path no longer resolves in this deployment.";
+    var ctas = [];
+    if (notFoundConfig.primaryCta) {
+      ctas.push({
+        label: notFoundConfig.primaryCta.label,
+        href: notFoundConfig.primaryCta.href,
+        style: "primary"
+      });
+    } else {
+      ctas.push({ label: "Return Home", href: "index.html", style: "primary" });
+    }
+    if (notFoundConfig.secondaryCta) {
+      ctas.push({
+        label: notFoundConfig.secondaryCta.label,
+        href: notFoundConfig.secondaryCta.href,
+        style: "secondary"
+      });
+    }
+
     container.innerHTML =
       '<div class="container">' +
       '<section class="not-found">' +
       '<div class="card u-max-md">' +
-      '<p class="eyebrow">404</p>' +
-      '<h1>Page not found.</h1>' +
-      '<p>The requested page does not exist or the path no longer resolves in this deployment.</p>' +
-      '<div class="button-row">' +
-      '<a class="button button--primary" href="index.html">Return Home</a>' +
-      '<a class="button button--secondary" href="contact.html">Contact Northstar</a>' +
-      "</div></div></section></div>";
+      '<p class="eyebrow">' + escapeHtml(eyebrow) + "</p>" +
+      '<h1>' + escapeHtml(title) + "</h1>" +
+      '<p>' + escapeHtml(body) + "</p>" +
+      renderButtonRow(ctas) +
+      "</div></section></div>";
   }
 
   function renderFooter(container) {

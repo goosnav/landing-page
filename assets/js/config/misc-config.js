@@ -8,6 +8,7 @@ window.SiteTemplate = window.SiteTemplate || {};
 window.SiteTemplate.config = window.SiteTemplate.config || {};
 
 window.SiteTemplate.config.misc = {
+  eyebrow: "Hidden placeholder",
   title: "Miscellaneous Placeholder",
   body:
     "Use this hidden page for future custom content that does not warrant a dedicated template yet.",

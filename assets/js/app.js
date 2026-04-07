@@ -13,6 +13,7 @@ window.SiteTemplate = window.SiteTemplate || {};
   }
 
   function initHomePage() {
+    var homePage = (template.config.site && template.config.site.homePage) || {};
     template.renderers.renderHero(document.querySelector("[data-home-hero]"));
     template.renderers.renderServiceSummary(document.querySelector("[data-home-services]"));
     template.renderers.renderDifferentiators(document.querySelector("[data-home-differentiators]"));
@@ -20,27 +21,26 @@ window.SiteTemplate = window.SiteTemplate || {};
     template.renderers.renderTestimonials(
       document.querySelector("[data-home-testimonials]"),
       "featuredOnHome",
-      "Trusted by operators who need stronger delivery signal.",
-      "Testimonials support both simplified and rich display modes without changing the section shell."
+      homePage.testimonialsHeader
     );
     template.renderers.renderCtaStrip(
       document.querySelector("[data-home-cta]"),
-      template.config.site.homePage.ctaStrip
+      homePage.ctaStrip
     );
   }
 
   function initServicesPage() {
+    var servicesConfig = template.config.services || {};
     template.renderers.renderServicePage(document.querySelector("[data-services-page]"));
     template.renderers.renderComparisonMatrix(document.querySelector("[data-services-comparison]"));
     template.renderers.renderTestimonials(
       document.querySelector("[data-services-testimonials]"),
       "featuredOnServices",
-      "Service engagements sized for real delivery complexity.",
-      "The services page intentionally carries a broader testimonial set than the homepage."
+      servicesConfig.testimonialsHeader
     );
     template.renderers.renderCtaStrip(
       document.querySelector("[data-services-cta]"),
-      template.config.services.pageCta
+      servicesConfig.pageCta
     );
   }
 
@@ -94,12 +94,13 @@ window.SiteTemplate = window.SiteTemplate || {};
   function initQuotePage() {
     var intro = document.querySelector("[data-quote-intro-copy]");
     if (intro) {
-      template.renderers.renderPageIntro(intro, {
+      var experience = (template.config.quote && template.config.quote.experience) || {};
+      var pageIntroCopy = experience.pageIntro || {
         eyebrow: "Quote",
-        title: "A controlled estimate experience for serious buyers.",
-        body:
-          "The quote flow uses one question per screen, a hard lead gate before result reveal, and scheduler handoff once the estimate is captured."
-      });
+        title: experience.title || "Guided Estimate",
+        body: experience.intro || ""
+      };
+      template.renderers.renderPageIntro(intro, pageIntroCopy);
     }
 
     template.quoteUi.initQuoteWizard(document.querySelector("[data-quote-root]"));
