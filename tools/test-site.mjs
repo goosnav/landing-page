@@ -317,6 +317,19 @@ function runContractTests() {
   const inlineSchedulerContainer = { innerHTML: "" };
   scheduler.renderScheduler(inlineSchedulerContainer, { context: "quote" });
   assert(inlineSchedulerContainer.innerHTML.includes("iframe"), "Inline scheduler mode should render the embed.");
+
+  const quoteUiSource = readFile("assets/js/quote-ui.js");
+  assert(quoteUiSource.includes("data-option-input"), "quote-ui.js must mark option inputs so the change listener can find them.");
+  assert(quoteUiSource.includes("data-option-button"), "quote-ui.js must mark option button labels so .is-selected can be toggled.");
+  assert(quoteUiSource.includes("syncOptionSelectionState"), "quote-ui.js must keep .is-selected in sync with the underlying input state on change.");
+  assert(/form\.addEventListener\("change"/.test(quoteUiSource), "quote-ui.js must register a change listener so visual selection follows clicks.");
+  assert(quoteUiSource.includes("heading.focus"), "quote-ui.js must move focus to the new question heading after advancing.");
+
+  const componentsCss = readFile("assets/css/components.css");
+  assert(componentsCss.includes("cursor: pointer"), "components.css must give .option-button a pointer cursor so it reads as clickable.");
+  assert(/\.option-button:hover/.test(componentsCss), "components.css must define a hover state for .option-button so users get rollover feedback.");
+  assert(/\.option-button:has\(input:checked\)/.test(componentsCss), "components.css must style the selected option via :has(input:checked) so the visual state always tracks the radio.");
+  assert(/\.option-button:focus-within/.test(componentsCss), "components.css must give .option-button a visible focus ring for keyboard users.");
 }
 
 function runAllChecks() {

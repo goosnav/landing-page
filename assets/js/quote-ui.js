@@ -30,7 +30,7 @@ window.SiteTemplate = window.SiteTemplate || {};
     var inputType = question.type === "checkbox-group" ? "checkbox" : "radio";
 
     return (
-      '<label class="option-button' + (isSelected ? " is-selected" : "") + '" for="' + inputId + '">' +
+      '<label class="option-button' + (isSelected ? " is-selected" : "") + '" for="' + inputId + '" data-option-button>' +
       '<input class="visually-hidden" id="' +
       inputId +
       '" type="' +
@@ -41,10 +41,25 @@ window.SiteTemplate = window.SiteTemplate || {};
       template.utils.escapeHtml(option.value) +
       '"' +
       (isSelected ? " checked" : "") +
-      ">" +
+      " data-option-input>" +
       '<span>' + template.utils.escapeHtml(option.label) + "</span>" +
       "</label>"
     );
+  }
+
+  function syncOptionSelectionState(form) {
+    var optionInputs = form.querySelectorAll("[data-option-input]");
+    optionInputs.forEach(function syncOne(input) {
+      var label = input.closest("[data-option-button]");
+      if (!label) {
+        return;
+      }
+      if (input.checked) {
+        label.classList.add("is-selected");
+      } else {
+        label.classList.remove("is-selected");
+      }
+    });
   }
 
   function renderQuestionField(question, answer) {
@@ -179,9 +194,10 @@ window.SiteTemplate = window.SiteTemplate || {};
     var progress = template.quoteEngine.getProgress(question.id, state.answers);
     var currentAnswer = state.answers[question.answerKey];
     var percentage = Math.round((progress.current / progress.total) * 100);
+    var headingId = "quote-question-" + question.id;
 
     root.innerHTML =
-      '<form class="quote-panel quote-stage" data-question-form novalidate>' +
+      '<form class="quote-panel quote-stage" data-question-form novalidate aria-live="polite" aria-labelledby="' + headingId + '">' +
       '<div class="quote-progress">' +
       '<div class="result-meta"><span class="meta-chip">Question ' +
       template.utils.escapeHtml(progress.current) +
@@ -193,7 +209,7 @@ window.SiteTemplate = window.SiteTemplate || {};
       '%"></div></div>' +
       "</div>" +
       '<div class="stack-md">' +
-      '<h2>' + template.utils.escapeHtml(question.title) + "</h2>" +
+      '<h2 id="' + headingId + '" tabindex="-1">' + template.utils.escapeHtml(question.title) + "</h2>" +
       (question.helpText ? '<p class="form-help">' + template.utils.escapeHtml(question.helpText) + "</p>" : "") +
       renderQuestionField(question, currentAnswer) +
       '<p class="field-error" data-question-error aria-live="polite"></p>' +
@@ -206,6 +222,18 @@ window.SiteTemplate = window.SiteTemplate || {};
 
     var form = root.querySelector("[data-question-form]");
     var errorNode = root.querySelector("[data-question-error]");
+    var heading = root.querySelector("#" + headingId);
+
+    syncOptionSelectionState(form);
+
+    form.addEventListener("change", function handleOptionChange(event) {
+      if (event.target && event.target.matches && event.target.matches("[data-option-input]")) {
+        syncOptionSelectionState(form);
+        if (errorNode.textContent) {
+          errorNode.textContent = "";
+        }
+      }
+    });
 
     form.addEventListener("submit", function handleSubmit(event) {
       event.preventDefault();
@@ -222,6 +250,10 @@ window.SiteTemplate = window.SiteTemplate || {};
     });
 
     root.querySelector("[data-quote-back]").addEventListener("click", onBack);
+
+    if (heading && typeof heading.focus === "function") {
+      heading.focus({ preventScroll: false });
+    }
   }
 
   function renderLeadGate(root, state, onSubmit, onBack) {
